@@ -1,0 +1,147 @@
+body {
+    display: flex;
+    flex-flow: row wrap;
+    flex-direction: column;  /* senkrechte ausrichtung */
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    min-height: 100vh; /* damit sich der body über die gesamte Höhe des Viewports erstreckt und der Footer unten fixiert bleibt */
+    margin: 0 auto; /* entfernt Außenabstand, sodass keine Scrollbalken entstehen */
+}
+div {
+    padding: 4px;
+}
+
+header, footer {
+    background-color: #c4d7cc;
+    padding: 8px;
+    white-space: nowrap;
+}
+
+main {
+    flex: 1 100%;   /* Applying flex: 1 to the flex items makes them occupy an equal amount of space relative to the full width of the container. */
+    padding: 8px;
+}
+
+#navigation {
+    align-items: center;
+    background-color: #c8ffb6;
+    display:flex;
+    height: 45px;
+    -webkit-justify-content: space-between; /* Safari */
+    justify-content: space-between;
+    padding: 10px;
+}
+
+#filter {
+    align-items: center;
+    background-color: #e6ffd5;
+    display:flex;
+    height: 45px;
+    -webkit-justify-content: flex-start; /* Safari */
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+.full-width {
+    -webkit-flex-basis:  100%; /* Safari */
+    flex-basis: 100%;
+}
+
+
+.dropdown option, .dropdown:after, .dropdown::after, .dropdown select {
+    color: #fff;
+}
+
+.dropdown select, .dropdown:after, .dropdown::after {
+    display: block;
+    background: #51b749;
+}
+
+.dropdown select, .dropdown option {
+    padding: 8px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    border: 0;
+}
+
+.dropdown::after {
+    content: "\25bc"; /* Unicode Character 'BLACK DOWN-POINTING TRIANGLE' */
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 32px;
+    font-size: 12px;
+    line-height: 34px;
+    text-align: center;
+}
+
+.dropdown select {
+    height: 34px;
+    border: 0;
+    vertical-align: middle;
+    font-size: 14px;
+    outline: 0 none;
+}
+
+.dropdown option {
+    background: #fff;
+    color: #333;
+}
+
+/* buttons */
+.btn {
+    -moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.btn-active {
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    color: #fff;
+}
+
+.btn-active:hover {
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333;
+}
+
+.btn-inactive {
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333;
+}
+
+.btn-inactive:hover {
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    color: #fff;
+}
+
+
+.btn-action {
+    background-color: #51b749;
+    border-color: #ccc;
+    color: #fff;
+}
+
+.btn-action:hover {
+    background-color: #398033;
+    border-color: #ccc;
+    color: #fff;
+}

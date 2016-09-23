@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Notizenapplikation</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="author" content="Nico Grubert">
+    <meta name="date" content="2016-09-09T12:49:37+02:00">
+    <meta name="description" content="CAS FEE - Notizenapplikation">
+    <!-- sorgt dafür, dass sich die Seite an den Viewport anpasst -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" media="screen" href="css/style.css">
+    <!-- template engine "handlebars" -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+</head>
+<body>
+
+<header>
+    <!--- navigation -->
+    <div id="navigation">
+        <div><button type="button" id="create-note" class="btn btn-action">Create new Note</button></div>
+        <div>
+            <span class="dropdown">
+                <select name="color-style" title="Color style">
+                    <option value="bw">Black-White-Style</option>
+                    <option value="col">Colored-Style</option>
+                </select>
+            </span>
+        </div>
+    </div>
+    <!-- filter -->
+    <div id="filter">
+        <div><button type="button" id="finish-date" class="btn btn-inactive">By finish date</button></div>
+        <div><button type="button" id="created-date" class="btn btn-inactive">By created date</button></div>
+        <div class="full-width"><button id="importance" type="button" class="btn btn-active">By importance</button></div>
+        <div><button type="button" id="show-finished" class="btn btn-active">Show finished</button></div>
+    </div>
+</header>
+
+<main>
+    <!--- main content -->
+    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+
+</main>
+
+<footer>
+    <a href="#">Contact</a>
+</footer>
+
+</body>
+</html>
