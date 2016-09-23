@@ -31,10 +31,10 @@
     </div>
     <!-- filter -->
     <div id="filter">
-        <div><button type="button" data-sortby="finish_date" id="finish-date" class="btn btn-inactive">By finish date</button></div>
-        <div><button type="button" data-sortby="created_date" id="created-date" class="btn btn-inactive">By created date</button></div>
+        <div><button type="button" data-sortby="finish_date" id="finish_date" class="btn btn-inactive">By finish date</button></div>
+        <div><button type="button" data-sortby="created_date" id="created_date" class="btn btn-inactive">By created date</button></div>
         <div class="full-width"><button data-sortby="importance" id="importance" type="button" class="btn btn-inactive">By importance</button></div>
-        <div><button type="button" data-sortby="show_finished" id="show-finished" class="btn btn-inactive">Show finished</button></div>
+        <button type="button" data-sortby="show_finished" id="show-finished" class="btn btn-inactive">Show finished</button>
     </div>
 </header>
 
@@ -84,27 +84,20 @@
     }
 
     function renderNotes (sortby) {
+        // set all active buttons inactive
+        $("#filter .btn-active").removeClass('btn-active').addClass('btn-inactive');
+        // activate the clicked button
+        $("#"+sortby).removeClass('btn-inactive').addClass('btn-active');
+        console.log("Clicked sortby: " + sortby);
         // by default sort by id
-        var sortfunc = function(n1,n2) { return n1.id > n2.id };
-        if (sortby == 'created_date') {
-            $('#created-date').removeClass('btn-inactive').addClass('btn-active');
-            $('#finish-date').removeClass('btn-active').addClass('btn-inactive');
-            $('#importance').removeClass('btn-active').addClass('btn-inactive');
-            sortfunc = function(n1,n2) { return n1.created_date < n2.created_date };
+        var sortfunc = function(n1,n2) { return n1[sortby] < n2[sortby] };
+
+        if (sortby == 'show_finished') {
+            $('#show-finished').toggleClass('btn-inactive btn-active');
+            $('#notes').html(createNotesHtml(notes));
+        } else {
+            $('#notes').html(createNotesHtml(notes.sort(sortfunc)));
         }
-        else if (sortby == 'finish_date') {
-            $('#finish-date').removeClass('btn-inactive').addClass('btn-active');
-            $('#created-date').removeClass('btn-active').addClass('btn-inactive');
-            $('#importance').removeClass('btn-active').addClass('btn-inactive');
-            sortfunc = function(n1,n2) { return n1.finish_date < n2.finish_date };
-        }
-        else if (sortby == 'importance') {
-            $('#importance').removeClass('btn-inactive').addClass('btn-active');
-            $('#created-date').removeClass('btn-active').addClass('btn-inactive');
-            $('#finish-date').removeClass('btn-active').addClass('btn-inactive');
-            sortfunc = function(n1,n2) { return n1.importance < n2.importance };
-        }
-        $("#notes").html(createNotesHtml(notes.sort(sortfunc)));
     }
 
     function editNote (id) {
@@ -113,13 +106,12 @@
 
     function sortbyEventHandler(event) {
         var sortby = event.target.getAttribute("data-sortby");
-        console.log("Clicked sortby: " + sortby);
         renderNotes(sortby);
     }
 
     $(function(){
         renderNotes('id');
-        $("#header").on("click", "button", sortbyEventHandler);
+        $('#header').on("click", "button", sortbyEventHandler);
     });
 
 </script>

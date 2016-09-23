@@ -46,6 +46,16 @@ main {
     padding: 10px;
 }
 
+#sortby {
+    display:flex;
+    -webkit-justify-content: flex-start; /* Safari */
+    justify-content: flex-start;
+}
+
+#container-show-finished {
+    float: right;
+}
+
 .full-width {
     -webkit-flex-basis:  100%; /* Safari */
     flex-basis: 100%;
