@@ -10,12 +10,13 @@
     <!-- sorgt dafür, dass sich die Seite an den Viewport anpasst -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" media="screen" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <!-- template engine "handlebars" -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+    <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
 </head>
 <body>
 
-<header>
+<header id="header">
     <!--- navigation -->
     <div id="navigation">
         <div><button type="button" id="create-note" class="btn btn-action">Create new Note</button></div>
@@ -30,9 +31,9 @@
     </div>
     <!-- filter -->
     <div id="filter">
-        <div><button type="button" id="finish-date" class="btn btn-inactive">By finish date</button></div>
-        <div><button type="button" id="created-date" class="btn btn-inactive">By created date</button></div>
-        <div class="full-width"><button id="importance" type="button" class="btn btn-active">By importance</button></div>
+        <div><button type="button" data-sortby="finish_date" id="finish-date" class="btn btn-inactive">By finish date</button></div>
+        <div><button type="button" data-sortby="created_date" id="created-date" class="btn btn-inactive">By created date</button></div>
+        <div class="full-width"><button data-sortby="importance" id="importance" type="button" class="btn btn-active">By importance</button></div>
         <div><button type="button" id="show-finished" class="btn btn-active">Show finished</button></div>
     </div>
 </header>
@@ -40,12 +41,65 @@
 <main>
     <!--- main content -->
     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+    <ul id="notes"></ul>
 
 </main>
 
 <footer>
     <a href="#">Contact</a>
 </footer>
+
+
+<script>
+    var notes = [
+        {"id":1, "finish_date":new Date(2016, 8, 2, 14, 30, 0), "created_date":new Date(2016, 8, 1, 12, 30, 0),
+                 "title":"Einkaufen", "is_finished":true},
+        {"id":2, "finish_date":new Date(2016, 8, 5, 15, 30, 0), "created_date":new Date(2016, 8, 3, 15, 30, 0),
+                 "title":"Auto waschen", "is_finished":false},
+        {"id":3, "finish_date":new Date(2016, 8, 12, 21, 0, 0), "created_date":new Date(2016, 8, 17, 18, 0, 0),
+                 "title":"Spanisch Kurs besuchen", "is_finished":false},
+        {"id":4, "finish_date":new Date(2016, 8, 1, 8, 0, 0), "created_date":new Date(2016, 8, 3, 7, 45, 0),
+                 "title":"Blumen giessen", "is_finished":true},
+        {"id":5, "finish_date":new Date(2016, 8, 2, 14, 30, 0), "created_date":new Date(2016, 9, 15, 11, 0, 0),
+                 "title":"Mit der Katze zum Tierarzt", "is_finished":false}
+    ];
+
+    function createNotesHtml (notes) {
+        var htmlString ="";
+        notes.forEach(function (note) {
+            htmlString += "<li>";
+            htmlString += '<button onclick="editNote(';
+            htmlString += note.id;
+            htmlString += ')")>EDIT</button> - ';
+            htmlString += note.id + " - ";
+            htmlString += note.title + " - ";
+            htmlString += note.created_date + " - ";
+            htmlString += note.finish_date + " - ";
+            htmlString += note.is_finished;
+            htmlString += "</li>";
+        });
+        return htmlString;
+    }
+
+    function renderNotes () {
+        document.getElementById("notes").innerHTML = createNotesHtml(notes);
+    }
+
+    function editNote (id) {
+        console.log("Edit note with id = " + id);
+    }
+
+    function sortbyEventHandler(event) {
+        var sortby = event.target.getAttribute("data-sortby");
+        console.log("Clicked sortby: " + sortby);
+    }
+
+    $(function(){
+        renderNotes();
+        $("#header").on("click", "button", sortbyEventHandler);
+    });
+
+</script>
 
 </body>
 </html>
