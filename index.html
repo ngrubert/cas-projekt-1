@@ -88,7 +88,7 @@
 
     function renderNotes (sortby) {
         // set all active buttons inactive
-        $('#filter').find('.btn-active').removeClass('btn-active')
+        $('#sortby').find('.btn-active').removeClass('btn-active')
                                         .addClass('btn-inactive');
         // activate the clicked button
         $('#'+sortby).removeClass('btn-inactive').addClass('btn-active');
@@ -126,8 +126,8 @@
 
     $(function(){
         renderNotes('id');
-        $('#filter').on('click', 'button', sortbyEventHandler);
-        $('#sortby').on('click', 'button', filterFinished);
+        $('#sortby').on('click', 'button', sortbyEventHandler);
+        $('#toggle-finished').on('click', 'button', filterFinished);
     });
 
 </script>
