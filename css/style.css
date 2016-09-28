@@ -38,27 +38,17 @@ main {
 
 #filter-sortby-container {
     background-color: #e6ffd5;
-    height: 42px;
-    padding: 10px;
+    display: -webkit-flex;
+    display: flex;
+    color: #444;
+    align-items: left;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
 }
 
-#filter {
-    float: left;
+#toggle-finished {
+    margin-left: auto;
 }
-
-#sortby {
-    float: right;
-}
-
-#container-show-finished {
-    float: right;
-}
-
-.full-width {
-    -webkit-flex-basis:  100%; /* Safari */
-    flex-basis: 100%;
-}
-
 
 .dropdown option, .dropdown:after, .dropdown::after, .dropdown select {
     color: #fff;
