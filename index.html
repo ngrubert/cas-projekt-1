@@ -87,23 +87,23 @@
     }
 
     function renderNotes (sortby) {
-        // set all active buttons inactive (ineffecicient jquery !)
-        $("#filter .btn-active").removeClass('btn-active')
-                                .addClass('btn-inactive');
+        // set all active buttons inactive
+        $('#filter').find('.btn-active').removeClass('btn-active')
+                                        .addClass('btn-inactive');
         // activate the clicked button
-        $("#"+sortby).removeClass('btn-inactive').addClass('btn-active');
-        console.log("Clicked sortby: " + sortby);
+        $('#'+sortby).removeClass('btn-inactive').addClass('btn-active');
+        console.log('Clicked sortby: ' + sortby);
         // by default sort by id
         var sortfunc = function(n1,n2) { return n1[sortby] < n2[sortby] };
         $('#notes').html(createNotesHtml(notes.sort(sortfunc)));
     }
 
     function editNote (id) {
-        console.log("Edit note with id = " + id);
+        console.log('Edit note with id = ' + id);
     }
 
     function sortbyEventHandler(event) {
-        var sortby = event.target.getAttribute("data-sortby");
+        var sortby = event.target.getAttribute('data-sortby');
         renderNotes(sortby);
     }
 
@@ -117,7 +117,7 @@
         return obj.is_finished == true;
     }
 
-    function filterFinished(event) {
+    function filterFinished() {
         $('#show-finished').toggleClass('btn-inactive btn-active');
         // Dont' know which approach is best: &.map() or array.filter()
         //$('#notes').html(createNotesHtml(getFilteredNotes(notes)));
@@ -126,8 +126,8 @@
 
     $(function(){
         renderNotes('id');
-        $('#filter').on("click", "button", sortbyEventHandler);
-        $('#sortby').on("click", "button", filterFinished);
+        $('#filter').on('click', 'button', sortbyEventHandler);
+        $('#sortby').on('click', 'button', filterFinished);
     });
 
 </script>
