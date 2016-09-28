@@ -30,12 +30,15 @@
         </div>
     </div>
     <!-- filter -->
-    <div id="filter">
-        <div><button type="button" data-sortby="finish_date" id="finish_date" class="btn btn-inactive">By finish date</button></div>
-        <div><button type="button" data-sortby="created_date" id="created_date" class="btn btn-inactive">By created date</button></div>
-        <div class="full-width"><button data-sortby="importance" id="importance" type="button" class="btn btn-inactive">By importance</button></div>
-        <button type="button" data-sortby="show_finished" id="show-finished" class="btn btn-inactive">Show finished</button>
+    <div id="filter-sortby-container">
+      <div id="filter">
+        <button type="button" data-sortby="finish_date" id="finish_date" class="btn btn-inactive">By finish date</button>
+        <button type="button" data-sortby="created_date" id="created_date" class="btn btn-inactive">By created date</button>
+        <button data-sortby="importance" id="importance" type="button" class="btn btn-inactive">By importance</button>
+      </div>
+      <div id="sortby"><button type="button" data-sortby="show_finished" id="show-finished" class="btn btn-inactive">Show finished</button></div>
     </div>
+
 </header>
 
 <main>
@@ -84,20 +87,15 @@
     }
 
     function renderNotes (sortby) {
-        // set all active buttons inactive
-        $("#filter .btn-active").removeClass('btn-active').addClass('btn-inactive');
+        // set all active buttons inactive (ineffecicient jquery !)
+        $("#filter .btn-active").removeClass('btn-active')
+                                .addClass('btn-inactive');
         // activate the clicked button
         $("#"+sortby).removeClass('btn-inactive').addClass('btn-active');
         console.log("Clicked sortby: " + sortby);
         // by default sort by id
         var sortfunc = function(n1,n2) { return n1[sortby] < n2[sortby] };
-
-        if (sortby == 'show_finished') {
-            $('#show-finished').toggleClass('btn-inactive btn-active');
-            $('#notes').html(createNotesHtml(notes));
-        } else {
-            $('#notes').html(createNotesHtml(notes.sort(sortfunc)));
-        }
+        $('#notes').html(createNotesHtml(notes.sort(sortfunc)));
     }
 
     function editNote (id) {
@@ -109,9 +107,27 @@
         renderNotes(sortby);
     }
 
+    function getFilteredNotes(notes) {
+        return $.map(notes, function(obj) {
+            return obj.is_finished == true ? obj : null;
+        });
+    }
+
+    function checkFinishedNotes(obj) {
+        return obj.is_finished == true;
+    }
+
+    function filterFinished(event) {
+        $('#show-finished').toggleClass('btn-inactive btn-active');
+        // Dont' know which approach is best: &.map() or array.filter()
+        //$('#notes').html(createNotesHtml(getFilteredNotes(notes)));
+        $('#notes').html(createNotesHtml(notes.filter(checkFinishedNotes)));
+    }
+
     $(function(){
         renderNotes('id');
-        $('#header').on("click", "button", sortbyEventHandler);
+        $('#filter').on("click", "button", sortbyEventHandler);
+        $('#sortby').on("click", "button", filterFinished);
     });
 
 </script>

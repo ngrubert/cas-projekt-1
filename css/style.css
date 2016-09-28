@@ -36,20 +36,18 @@ main {
     padding: 10px;
 }
 
-#filter {
-    align-items: center;
+#filter-sortby-container {
     background-color: #e6ffd5;
-    display:flex;
-    height: 45px;
-    -webkit-justify-content: flex-start; /* Safari */
-    justify-content: flex-start;
+    height: 42px;
     padding: 10px;
 }
 
+#filter {
+    float: left;
+}
+
 #sortby {
-    display:flex;
-    -webkit-justify-content: flex-start; /* Safari */
-    justify-content: flex-start;
+    float: right;
 }
 
 #container-show-finished {
