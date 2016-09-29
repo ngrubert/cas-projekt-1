@@ -31,19 +31,17 @@ main {
     background-color: #c8ffb6;
     display:flex;
     height: 45px;
-    -webkit-justify-content: space-between; /* Safari */
     justify-content: space-between;
     padding: 10px;
 }
 
 #filter-sortby-container {
-    background-color: #e6ffd5;
-    display: -webkit-flex;
-    display: flex;
-    color: #444;
     align-items: left;
-    -webkit-flex-flow: row wrap;
+    background-color: #e6ffd5;
+    color: #444;
+    display: flex;
     flex-flow: row wrap;
+    padding: 10px;
 }
 
 #toggle-finished {
@@ -68,17 +66,6 @@ main {
     display: inline-block;
     border: 0;
 }
-/*
-.dropdown::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: block;
-    width: 32px;
-    font-size: 12px;
-    line-height: 34px;
-    text-align: center;
-}*/
 
 .dropdown select {
     height: 34px;

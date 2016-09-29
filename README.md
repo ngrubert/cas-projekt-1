@@ -1,3 +1,4 @@
+-------------------
 CAS FEE - Projekt 1
 -------------------
 
@@ -15,3 +16,11 @@ Erstellen einer Notizenapplikation
    - Nutzung von JQuery ist erlaubt
 
 - Ältere Browser müssen nicht unterstützt werden.
+
+
+
+ToDos:
+======
+- Umbruch der Buttons bei Verkleinerung Browserfenster
+- Add/Edit Funktionalität
+- Filter "Show finished" klappt nur beim 1. Mal; Status speichern

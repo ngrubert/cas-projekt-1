@@ -10,8 +10,6 @@
     <!-- sorgt dafür, dass sich die Seite an den Viewport anpasst -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" media="screen" href="css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <!-- template engine "handlebars" -->
     <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
 </head>
 <body>
@@ -38,15 +36,12 @@
       </div>
       <div id="toggle-finished"><button type="button" data-sortby="show_finished" id="show-finished" class="btn btn-inactive">Show finished</button></div>
     </div>
-
 </header>
 
 <main>
     <!--- main content -->
-    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-    <p><em>ID - title - created_date - finish_date - importance - is_finished</em></p>
+    <p><em>[ ID - title - created_date - finish_date - importance - is_finished ]</em></p>
     <ul id="notes"></ul>
-
 </main>
 
 <footer>
@@ -55,6 +50,7 @@
 
 
 <script>
+    // create some dummy records to start
     var notes = [
         {"id":1, "finish_date":new Date(2016, 8, 2, 14, 30, 0), "created_date":new Date(2016, 8, 1, 12, 30, 0),
                  "title":"Einkaufen", "is_finished":true, "importance":1},
@@ -124,6 +120,7 @@
         $('#notes').html(createNotesHtml(notes.filter(checkFinishedNotes)));
     }
 
+    // define event handlers
     $(function(){
         renderNotes('id');
         $('#sortby').on('click', 'button', sortbyEventHandler);
