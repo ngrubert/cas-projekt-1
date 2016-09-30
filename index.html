@@ -44,10 +44,6 @@
     </section>
 </main>
 
-<footer>
-    <a href="#">Contact</a>
-</footer>
-
 <script id="notes-template" type="text/x-handlebars-template">
     {{#each this}}
     <div class="note-item">
@@ -55,7 +51,7 @@
             <p>{{formatDate this.finish_date "DD.MM.YYYY"}}</p>
             <p>{{#if this.is_finished}}
                   <input id="finished-{{id}}" type="checkbox" checked>
-                  <label for="finished-{{id}}">Finished at <time>{{this.finish_date}}</time></label>
+                  <label for="finished-{{id}}">Finished at <time>{{formatDate this.finish_date "DD.MM.YYYY"}}</time></label>
                 {{else}}
                   <input id="finished-{{id}}" type="checkbox">
                   <label for="finished-{{id}}">Finished</label>
