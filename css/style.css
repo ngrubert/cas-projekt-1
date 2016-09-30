@@ -11,10 +11,9 @@ div {
     padding: 4px;
 }
 
-header, footer {
-    background-color: #c4d7cc;
-    padding: 8px;
+header {
     white-space: nowrap;
+    border-bottom: 1px solid #ccc;
 }
 
 footer {
@@ -23,7 +22,6 @@ footer {
 
 main {
     flex: 1 100%;   /* Applying flex: 1 to the flex items makes them occupy an equal amount of space relative to the full width of the container. */
-    padding: 8px;
 }
 
 #navigation {
@@ -122,3 +120,58 @@ main {
     color: #fff;
 }
 /* /buttons */
+
+/* notes listing */
+#notes-container {
+    background-color: #e6ffd5;
+    font-size: 0.9em;
+}
+
+.note-item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+div.note-item:nth-child(even)
+{
+    background-color: #fff;
+}
+div.note-item:nth-child(odd)
+{
+    background-color: #eee;
+}
+
+.note-item div {
+    box-sizing: border-box;
+}
+
+.left  {
+    width:20%;
+}
+
+.middle {
+    width:70%;
+    display: block;
+    overflow: hidden;
+}
+
+.title-wrapper {
+    display: inline;
+}
+.note-title {
+    float:left;
+    font-weight: bold;
+}
+
+.note-importance {
+    float:right;
+    width: 70px;
+}
+
+.note-description {
+    font-size: 0.9em;
+    padding: 4px;
+}
+
+/* /notes listing */

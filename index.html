@@ -10,14 +10,13 @@
     <!-- sorgt dafür, dass sich die Seite an den Viewport anpasst -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" media="screen" href="css/style.css">
-    <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
 </head>
 <body>
 
 <header id="header">
     <!--- navigation -->
     <div id="navigation">
-        <div><button type="button" id="create-note" class="btn btn-action">Create new Note</button></div>
+        <div><button type="button" id="create-note-btn" class="btn btn-action">Create new Note</button></div>
         <div>
             <span class="dropdown">
                 <select name="color-style" title="Color style">
@@ -30,9 +29,9 @@
     <!-- filter -->
     <div id="filter-sortby-container">
       <div id="sortby">
-        <button type="button" data-sortby="finish_date" id="finish_date" class="btn btn-inactive">By finish date</button>
-        <button type="button" data-sortby="created_date" id="created_date" class="btn btn-inactive">By created date</button>
-        <button data-sortby="importance" id="importance" type="button" class="btn btn-inactive">By importance</button>
+        <button data-sortby="finish_date"  id="finish_date"  class="btn btn-inactive">By finish date</button>
+        <button data-sortby="created_date" id="created_date" class="btn btn-inactive">By created date</button>
+        <button data-sortby="importance"   id="importance"   class="btn btn-inactive">By importance</button>
       </div>
       <div id="toggle-finished"><button type="button" data-sortby="show_finished" id="show-finished" class="btn btn-inactive">Show finished</button></div>
     </div>
@@ -40,94 +39,44 @@
 
 <main>
     <!--- main content -->
-    <p><em>[ ID - title - created_date - finish_date - importance - is_finished ]</em></p>
-    <ul id="notes"></ul>
+    <section>
+        <div id="notes-container"></div>
+    </section>
 </main>
 
 <footer>
     <a href="#">Contact</a>
 </footer>
 
-
-<script>
-    // create some dummy records to start
-    var notes = [
-        {"id":1, "finish_date":new Date(2016, 8, 2, 14, 30, 0), "created_date":new Date(2016, 8, 1, 12, 30, 0),
-                 "title":"Einkaufen", "is_finished":true, "importance":1},
-        {"id":2, "finish_date":new Date(2016, 8, 5, 15, 30, 0), "created_date":new Date(2016, 8, 3, 15, 30, 0),
-                 "title":"Auto waschen", "is_finished":false, "importance":1},
-        {"id":3, "finish_date":new Date(2016, 9, 12, 21, 0, 0), "created_date":new Date(2016, 9, 5, 18, 0, 0),
-                 "title":"Spanisch Kurs besuchen", "is_finished":false, "importance":2},
-        {"id":4, "finish_date":new Date(2016, 8, 1, 8, 0, 0), "created_date":new Date(2016, 8, 3, 7, 45, 0),
-                 "title":"Blumen giessen", "is_finished":true, "importance":3},
-        {"id":5, "finish_date":new Date(2016, 8, 2, 14, 30, 0), "created_date":new Date(2016, 8, 2, 11, 0, 0),
-                 "title":"Mit der Katze zum Tierarzt", "is_finished":false, "importance":5}
-    ];
-
-    function createNotesHtml (notes) {
-        var htmlString ="";
-        notes.forEach(function (note) {
-            htmlString += "<li>";
-            htmlString += '<button onclick="editNote(';
-            htmlString += note.id;
-            htmlString += ')")>EDIT</button> - ';
-            htmlString += note.id + " - ";
-            htmlString += note.title + " - ";
-            htmlString += note.created_date + " - ";
-            htmlString += note.finish_date + " - ";
-            htmlString += note.importance + " - ";
-            htmlString += note.is_finished;
-            htmlString += "</li>";
-        });
-        return htmlString;
-    }
-
-    function renderNotes (sortby) {
-        // set all active buttons inactive
-        $('#sortby').find('.btn-active').removeClass('btn-active')
-                                        .addClass('btn-inactive');
-        // activate the clicked button
-        $('#'+sortby).removeClass('btn-inactive').addClass('btn-active');
-        console.log('Clicked sortby: ' + sortby);
-        // by default sort by id
-        var sortfunc = function(n1,n2) { return n1[sortby] < n2[sortby] };
-        $('#notes').html(createNotesHtml(notes.sort(sortfunc)));
-    }
-
-    function editNote (id) {
-        console.log('Edit note with id = ' + id);
-    }
-
-    function sortbyEventHandler(event) {
-        var sortby = event.target.getAttribute('data-sortby');
-        renderNotes(sortby);
-    }
-
-    function getFilteredNotes(notes) {
-        return $.map(notes, function(obj) {
-            return obj.is_finished == true ? obj : null;
-        });
-    }
-
-    function checkFinishedNotes(obj) {
-        return obj.is_finished == true;
-    }
-
-    function filterFinished() {
-        $('#show-finished').toggleClass('btn-inactive btn-active');
-        // Dont' know which approach is best: &.map() or array.filter()
-        //$('#notes').html(createNotesHtml(getFilteredNotes(notes)));
-        $('#notes').html(createNotesHtml(notes.filter(checkFinishedNotes)));
-    }
-
-    // define event handlers
-    $(function(){
-        renderNotes('id');
-        $('#sortby').on('click', 'button', sortbyEventHandler);
-        $('#toggle-finished').on('click', 'button', filterFinished);
-    });
-
+<script id="notes-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="note-item">
+        <div class="left">
+            <p>{{formatDate finishDate "DD.MM.YYYY"}} </p>
+            <p>{{#if is_finished}}
+                  <input id="finished-{{id}}" type="checkbox" checked>
+                  <label for="finished-{{id}}">Finished at <time>{{finish_date}}</time></label>
+                {{else}}
+                  <input id="finished-{{id}}" type="checkbox">
+                  <label for="finished-{{id}}">Finished</label>
+                {{/if}}
+            </p>
+        </div>
+        <div class="middle">
+            <div class="title-wrapper">
+                <div class="note-title">{{this.title}}</div>
+                <div class="note-importance">{{this.importance}} * * * *</div>
+            </div>
+            <p class="note-description">{{this.description}}</p>
+        </div>
+        <div><p><button id="edit-note-btn" class="btn btn-action" onclick="editNote({{this.id}})">Edit</button></p></div>
+    </div>
+    {{/each}}
 </script>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
