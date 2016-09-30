@@ -33,7 +33,7 @@
         <button data-sortby="created_date" id="created_date" class="btn btn-inactive">By created date</button>
         <button data-sortby="importance"   id="importance"   class="btn btn-inactive">By importance</button>
       </div>
-      <div id="toggle-finished"><button type="button" data-sortby="show_finished" id="show-finished" class="btn btn-inactive">Show finished</button></div>
+      <div id="toggle-finished"><button type="button" data-sortby="show_finished" id="show-finished-btn" class="btn btn-inactive">Show finished</button></div>
     </div>
 </header>
 
@@ -52,10 +52,10 @@
     {{#each this}}
     <div class="note-item">
         <div class="left">
-            <p>{{formatDate finishDate "DD.MM.YYYY"}} </p>
-            <p>{{#if is_finished}}
+            <p>{{formatDate this.finish_date "DD.MM.YYYY"}}</p>
+            <p>{{#if this.is_finished}}
                   <input id="finished-{{id}}" type="checkbox" checked>
-                  <label for="finished-{{id}}">Finished at <time>{{finish_date}}</time></label>
+                  <label for="finished-{{id}}">Finished at <time>{{this.finish_date}}</time></label>
                 {{else}}
                   <input id="finished-{{id}}" type="checkbox">
                   <label for="finished-{{id}}">Finished</label>
