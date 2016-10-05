@@ -78,7 +78,7 @@ main {
     color: #333;
 }
 
-/* buttons */
+/* === buttons === */
 .btn {
     -moz-user-select: none;
     background-image: none;
@@ -121,7 +121,7 @@ main {
 }
 /* /buttons */
 
-/* notes listing */
+/* === notes listing === */
 #notes-container {
     background-color: #e6ffd5;
     font-size: 0.9em;
@@ -130,7 +130,7 @@ main {
 .note-item {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 div.note-item:nth-child(even)
@@ -147,7 +147,7 @@ div.note-item:nth-child(odd)
 }
 
 .left  {
-    width:20%;
+    width:200px;
 }
 
 .middle {
@@ -175,3 +175,141 @@ div.note-item:nth-child(odd)
 }
 
 /* /notes listing */
+
+/* === add form === */
+
+/* === add form === */
+#addform-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.addform ul {
+    list-style-type: none;
+    list-style-position: outside;
+    margin: 0px;
+    padding: 0px;
+}
+.addform li{
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+.addform li:first-child, .addform li:last-child {
+    border-bottom: 1px solid #777;
+}
+.addform h2 {
+    margin:0;
+    display: inline;
+}
+.required_notification {
+    color: #d45252;
+    display: inline;
+    float: right;
+    font-size: 0.9em;
+    margin: 5px 0 0 0;
+}
+
+.addform label {
+    width: 150px;
+    white-space: nowrap;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    float: left;
+}
+.addform input {
+    height: 20px;
+    width: 220px;
+    padding: 5px 8px;
+}
+.addform textarea {
+    padding:8px;
+}
+.addform button {
+    margin-left: 10px;
+}
+
+/* form element visual styles */
+.addform input, .addform textarea {
+    border: 1px solid #aaa;
+    box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
+    border-radius: 2px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-weight: 200;
+    padding-right: 30px;
+    transition: padding .25s;
+    width: 60%;
+}
+.addform input:focus, .addform textarea:focus {
+    background: #fff;
+    border: 1px solid #555;
+    box-shadow: 0 0 3px #aaa;
+    padding-right:70px;
+}
+.addform input:required, .addform textarea:required {
+    background: #fff url('../images/red_asterisk.png') no-repeat 98% center;
+}
+.addform input:required:valid, .addform textarea:required:valid {
+    background: #fff url('../images/valid.png') no-repeat 98% center;
+    box-shadow: 0 0 5px #5cd053;
+    border-color: #28921f;
+}
+.addform input:focus:invalid, .addform textarea:focus:invalid {
+    background: #fff url('../images/invalid.png') no-repeat 98% center;
+    box-shadow: 0 0 5px #d45252;
+    border-color: #b03535
+}
+
+.addform input:focus + .form_hint {display: inline;}
+.addform input:required:valid + .form_hint {background: #28921f;}
+.addform input:required:valid + .form_hint::before {color:#28921f;}
+
+.center {
+    text-align: center;
+}
+
+/* === rating ===
+   See: http://code.stephenmorley.org/html-and-css/star-rating-widget/#download
+*/
+.rating {
+    display: inline-block;
+    width: 7.5em;
+    height: 1.2em;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+
+.rating > input[type="radio"] {
+    margin-right: -100%;    /* prevents radio buttons affecting the layout */
+    opacity: 0;             /* hide the radio buttons */
+}
+
+.rating > label {
+    background: url('../images/star-off.svg');
+    background-size: contain;
+    display: block;
+    float: right;
+    position: relative;
+    width: 20%;
+}
+
+.rating > label:before {
+    background: url('../images/star-on.svg');
+    background-size: contain;
+    content: '';
+    display: block;
+    height: 1.5em;
+    opacity: 0;
+    transition: opacity 0.1s linear;
+    width: 1.5em;
+}
+
+.rating:not(old) > label:hover:before,
+.rating:not(old) > label:hover ~ label:before,
+.rating:not(:hover) > :checked ~ label:before{
+    opacity : 1;
+}

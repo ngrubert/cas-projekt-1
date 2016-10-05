@@ -3,13 +3,13 @@ var notes = [
     {"id":1, "finish_date":new Date(2016, 8, 2, 14, 30, 0),
         "created_date":new Date(2016, 8, 1, 12, 30, 0),
         "title":"Einkaufen",
-        "description":"Obst, Gemüse, Poulet",
+        "description":"Obst, Gemuese, Poulet",
         "is_finished":true,
         "importance":1},
     {"id":2, "finish_date":new Date(2016, 8, 5, 15, 30, 0),
         "created_date":new Date(2016, 8, 3, 15, 30, 0),
         "title":"Auto waschen",
-        "description":"Unterbodenwäsche nicht vergessen.",
+        "description":"Unterbodenwaesche nicht vergessen.",
         "is_finished":false,
         "importance":1},
     {"id":3, "finish_date":new Date(2016, 9, 12, 21, 0, 0),
@@ -31,14 +31,15 @@ var notes = [
         "is_finished":false,
         "importance":5}
 ];
-
-var createNotesTemplate = Handlebars.compile(document.getElementById("notes-template").innerText);
-
-// provide helper function to format date; requires moment.js library
-Handlebars.registerHelper('formatDate', function (date, format) {
-    var mmnt = moment(date);
-    return mmnt.format(format);
-});
+var notestemplate = document.getElementById("notes-template");
+if (notestemplate) {
+    var createNotesTemplate = Handlebars.compile(notestemplate.innerText);
+    // provide helper function to format date; requires moment.js library
+    Handlebars.registerHelper('formatDate', function (date, format) {
+        var mmnt = moment(date);
+        return mmnt.format(format);
+    });
+}
 
 function renderNotes(sortby) {
     if (!sortby) {
@@ -70,6 +71,7 @@ function editNote(id) {
 
 function sortbyEventHandler(event) {
     var sortby = event.target.getAttribute('data-sortby');
+    // update sortby in session
     sessionStorage.setItem('sortby', sortby);
     renderNotes(sortby);
 }
@@ -81,7 +83,13 @@ function filterFinished() {
 
 // define event handlers
 $(function(){
-    renderNotes('finish_date');
-    $('#sortby').on('click', 'button', sortbyEventHandler);
-    $('#toggle-finished').on('click', 'button', filterFinished);
+    if (notestemplate) {
+        // init
+        sortby = 'finish_date';
+        // save sortby to session
+        sessionStorage.setItem('sortby', sortby);
+        renderNotes(sortby);
+        $('#sortby').on('click', 'button', sortbyEventHandler);
+        $('#toggle-finished').on('click', 'button', filterFinished);
+    }
 });
