@@ -92,4 +92,8 @@ $(function(){
         $('#sortby').on('click', 'button', sortbyEventHandler);
         $('#toggle-finished').on('click', 'button', filterFinished);
     }
+    $('#cancel-btn').click(function() {
+        console.log('Hit cancel button');
+        window.location.replace('index.html');
+    })
 });
