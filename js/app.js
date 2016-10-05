@@ -1,36 +1,3 @@
-// create some dummy records to start
-var notes = [
-    {"id":1, "finish_date":new Date(2016, 8, 2, 14, 30, 0),
-        "created_date":new Date(2016, 8, 1, 12, 30, 0),
-        "title":"Einkaufen",
-        "description":"Obst, Gemuese, Poulet",
-        "is_finished":true,
-        "importance":1},
-    {"id":2, "finish_date":new Date(2016, 8, 5, 15, 30, 0),
-        "created_date":new Date(2016, 8, 3, 15, 30, 0),
-        "title":"Auto waschen",
-        "description":"Unterbodenwaesche nicht vergessen.",
-        "is_finished":false,
-        "importance":1},
-    {"id":3, "finish_date":new Date(2016, 9, 12, 21, 0, 0),
-        "created_date":new Date(2016, 9, 5, 18, 0, 0),
-        "title":"Spanisch Kurs besuchen",
-        "description":"Lektion von letzter Woche nochmal wiederholen.",
-        "is_finished":false,
-        "importance":2},
-    {"id":4, "finish_date":new Date(2016, 8, 1, 8, 0, 0),
-        "created_date":new Date(2016, 8, 3, 7, 45, 0),
-        "title":"Blumen giessen",
-        "description":"Drachenbaum dieses Mal kein Wasser geben.",
-        "is_finished":true,
-        "importance":3},
-    {"id":5, "finish_date":new Date(2016, 8, 2, 14, 30, 0),
-        "created_date":new Date(2016, 8, 2, 11, 0, 0),
-        "title":"Mit der Katze zum Tierarzt",
-        "description":"Impfpass mitnehmen und Medikamente vom Tierarzt mitnehmen.",
-        "is_finished":false,
-        "importance":5}
-];
 var notestemplate = document.getElementById("notes-template");
 if (notestemplate) {
     var createNotesTemplate = Handlebars.compile(notestemplate.innerText);
@@ -41,7 +8,14 @@ if (notestemplate) {
     });
 }
 
+function getNotesData() {
+    var notes_str  = localStorage.getItem("notesdata") || "[]",
+        notes_list = JSON.parse(notes_str);
+    return notes_list
+}
+
 function renderNotes(sortby) {
+    var notes = getNotesData();
     if (!sortby) {
         var sortby = sessionStorage.getItem('sortby');
     }
@@ -55,10 +29,9 @@ function renderNotes(sortby) {
     // filter notes list according to [Show finished] button
     if (!$('#show-finished-btn').hasClass('btn-active')) {
         // show only notes which are not finished
-        var filtered_notes = notes.filter( obj => obj.is_finished == false);
-        console.log('Showing only active notes');
+        var filtered_notes = notes.filter( obj => obj.is_finished == false;)
     } else {
-        console.log('Showing all notes including finished ones');
+        // show all notes including finished ones
         var filtered_notes = notes;
     };
     // render template and pass the filtered_notes which is sorted with sortfunc alias
@@ -73,6 +46,7 @@ function sortbyEventHandler(event) {
     var sortby = event.target.getAttribute('data-sortby');
     // update sortby in session
     sessionStorage.setItem('sortby', sortby);
+    console.log('Set sortby to session: ' + sortby);
     renderNotes(sortby);
 }
 
@@ -81,19 +55,49 @@ function filterFinished() {
     renderNotes();
 }
 
+
+
 // define event handlers
 $(function(){
     if (notestemplate) {
-        // init
-        sortby = 'finish_date';
+        // try to get the sortby from session; if its not set use default ('finish_date')
+        var sortby = sessionStorage.getItem('sortby') || 'finish_date';
         // save sortby to session
         sessionStorage.setItem('sortby', sortby);
         renderNotes(sortby);
         $('#sortby').on('click', 'button', sortbyEventHandler);
         $('#toggle-finished').on('click', 'button', filterFinished);
-    }
+    };
     $('#cancel-btn').click(function() {
         console.log('Hit cancel button');
         window.location.replace('index.html');
-    })
+    });
+    $('#add-btn').click(function() {
+        var title       = $('#field-title').val(),
+            description = $('#field-description').val(),
+            finish_date = $('#field-finish_date').val(),
+            importance  = $("input:radio[name ='importance']:checked").val(),
+            notes_str   = localStorage.getItem("notesdata");
+        if ( !notes_str ) {
+            localStorage.setItem("notesdata", JSON.stringify([]));
+            var notes_str = localStorage.getItem("notesdata"),
+                new_id = 1;
+        }
+        var notes_list  = JSON.parse(notes_str),
+            maxid       = Math.max.apply(Math, notes_list.map(function(obj){return obj.id;})),
+            newid       = new_id || maxid + 1,
+            new_note    = {'id':newid,
+                           'title':title,
+                           'description':description,
+                           'finish_date':finish_date,
+                           'importance':importance,
+                           'created_date':new Date(),
+                           'is_finished': false
+                           }
+        notes_list.push(new_note);
+        localStorage.setItem("notesdata", JSON.stringify(notes_list));
+
+        window.location.replace('index.html');
+
+    });
 });

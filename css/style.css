@@ -272,9 +272,7 @@ div.note-item:nth-child(odd)
     text-align: center;
 }
 
-/* === rating ===
-   See: http://code.stephenmorley.org/html-and-css/star-rating-widget/#download
-*/
+/* === rating === */
 .rating {
     display: inline-block;
     width: 7.5em;
