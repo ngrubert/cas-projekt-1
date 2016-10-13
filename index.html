@@ -30,7 +30,7 @@
     <!-- filter -->
     <div id="filter-sortby-container">
       <div id="sortby">
-        <button data-sortby="finish_date"  id="finish_date"  class="btn btn-inactive">By finish date</button>
+        <button data-sortby="due_date"     id="due_date"     class="btn btn-inactive">By due date</button>
         <button data-sortby="created_date" id="created_date" class="btn btn-inactive">By created date</button>
         <button data-sortby="importance"   id="importance"   class="btn btn-inactive">By importance</button>
       </div>
@@ -47,12 +47,12 @@
     {{#each this}}
     <div class="note-item">
         <div class="left">
-            <div>{{formatDate this.finish_date "DD.MM.YYYY"}}</div>
+            <div>{{formatDate this.due_date "DD.MM.YYYY"}}</div>
             <div>{{#if this.is_finished}}
-                  <input id="finished-{{id}}" type="checkbox" checked>
+                  <input id="finished-{{id}}" type="checkbox" value="{{id}}" onclick="updateNoteFinishedStatus('{{id}}')" checked>
                   <label for="finished-{{id}}">Finished at <time>{{formatDate this.finish_date "DD.MM.YYYY"}}</time></label>
                 {{else}}
-                  <input id="finished-{{id}}" type="checkbox">
+                  <input id="finished-{{id}}" type="checkbox" value="{{id}}" onclick="updateNoteFinishedStatus('{{id}}')">
                   <label for="finished-{{id}}">Finished</label>
                 {{/if}}
             </div>
@@ -60,7 +60,7 @@
         <div class="middle">
             <div class="title-wrapper">
                 <div class="note-title">{{this.title}}</div>
-                <div class="note-importance">{{this.importance}} * * * *</div>
+                <div class="note-importance"><img src="images/importance-{{this.importance}}.png"></div>
             </div>
             <p class="note-description">{{this.description}}</p>
         </div>

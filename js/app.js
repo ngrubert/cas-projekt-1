@@ -9,40 +9,79 @@ if (notestemplate) {
 }
 
 function initDummyNotes() {
-    // create some dummy records to start
-    var dummy_notes = [
-        {"id":1, "finish_date":new Date(2016, 8, 2, 14, 30, 0),
-            "created_date":new Date(2016, 8, 1, 12, 30, 0),
+    /* create some dummy records to start
+       'due_date' is the deadline when the task should be finished
+       'finish_date' is the date when the user has ticked the 'Finished' checkbox
+       due_date and created_date are set to future dates using the moment JS library
+    */
+    var today = new Date(),
+        dummy_notes = [
+           {"id":1,
+            "due_date":new moment(today, "YYYY-MM-DD").add(3, 'days'),
+            "created_date":new moment(today, "YYYY-MM-DD").add(1, 'days'),
             "title":"Einkaufen",
             "description":"Obst, Gemüse, Poulet",
             "is_finished":true,
-            "importance":1},
-        {"id":2, "finish_date":new Date(2016, 8, 5, 15, 30, 0),
-            "created_date":new Date(2016, 8, 3, 15, 30, 0),
+            "importance":4},
+           {"id":2,
+            "due_date":new moment(today, "YYYY-MM-DD").add(4, 'days'),
+            "created_date":new moment(today, "YYYY-MM-DD").add(2, 'days'),
             "title":"Auto waschen",
             "description":"Unterbodenwäsche nicht vergessen.",
             "is_finished":false,
             "importance":1},
-        {"id":3, "finish_date":new Date(2016, 9, 12, 21, 0, 0),
-            "created_date":new Date(2016, 9, 5, 18, 0, 0),
+           {"id":3,
+            "due_date":new moment(today, "YYYY-MM-DD").add(5, 'days'),
+            "created_date":new moment(today, "YYYY-MM-DD").add(3, 'days'),
             "title":"Spanisch Kurs am Abend besuchen",
-            "description":"Lektion von letzter Woche nochmal wiederholen.",
+            "description":"Lektion von letzter Woche nochmal durchgehen.",
             "is_finished":false,
             "importance":2},
-        {"id":4, "finish_date":new Date(2016, 8, 1, 8, 0, 0),
-            "created_date":new Date(2016, 8, 3, 7, 45, 0),
+           {"id":4,
+            "due_date":new moment(today, "YYYY-MM-DD").add(1, 'days'),
+            "created_date":new moment(today, "YYYY-MM-DD").add(4, 'days'),
             "title":"Blumen giessen",
             "description":"Drachenbaum dieses Mal kein Wasser geben.",
-            "is_finished":true,
+            "is_finished":false,
             "importance":3},
-        {"id":5, "finish_date":new Date(2016, 8, 2, 14, 30, 0),
-            "created_date":new Date(2016, 8, 2, 11, 0, 0),
-            "title":"Mit der Katze zum Tierarzt",
+           {"id":5,
+            "due_date":new moment(today, "YYYY-MM-DD").add(8, 'days'),
+            "created_date":new moment(today, "YYYY-MM-DD").add(5, 'days'),
+            "title":"Mit der Katze zum Tierarzt fahren",
             "description":"Impfpass mitnehmen und Medikamente vom Tierarzt mitnehmen.",
             "is_finished":false,
             "importance":5}
     ];
+    // create dummy entries
+    for (var i = 0, l = dummy_notes.length; i < l; i++) {
+        var obj = dummy_notes[i];
+        saveNote(obj.title, obj.description, obj.created_date, obj.due_date, obj.finish_date, obj.is_finished, obj.importance)
+    }
     return dummy_notes
+}
+
+function saveNote(title, description, created_date, due_date, finish_date, is_finished, importance) {
+    notes_str = localStorage.getItem("notesdata");
+    if ( !notes_str ) {
+        // if there is no notesdata saved then init it
+        localStorage.setItem("notesdata", JSON.stringify([]));
+        var notes_str = localStorage.getItem("notesdata"),
+            new_id = 1;
+    }
+    var notes_list  = JSON.parse(notes_str),
+        maxid       = Math.max.apply(Math, notes_list.map(function(obj){return obj.id;})),
+        newid       = new_id || maxid + 1,
+        new_note    =  {'id': newid,
+                        'title': title,
+                        'description': description,
+                        'created_date': created_date || new Date(),
+                        'due_date': due_date,
+                        'finish_date': finish_date,
+                        'is_finished': is_finished,
+                        'importance': importance
+                        }
+    notes_list.push(new_note);
+    localStorage.setItem("notesdata", JSON.stringify(notes_list));
 }
 
 function getNotesData() {
@@ -83,7 +122,6 @@ function sortbyEventHandler(event) {
     var sortby = event.target.getAttribute('data-sortby');
     // update sortby in session
     sessionStorage.setItem('sortby', sortby);
-    console.log('Set sortby to session: ' + sortby);
     renderNotes(sortby);
 }
 
@@ -121,7 +159,6 @@ $(function(){
     };
 
     $('#cancel-btn').click(function() {
-        console.log('Hit cancel button');
         window.location.replace('index.html');
     });
 
@@ -129,37 +166,18 @@ $(function(){
         var title       = $('#field-title').val(),
             description = $('#field-description').val(),
             due_date    = $('#field-due_date').val(),
-            importance  = $("input:radio[name ='importance']:checked").val(),
-            notes_str   = localStorage.getItem("notesdata");
-        if (title && moment(due_date)) {
+            importance  = $("input:radio[name ='importance']:checked").val();
+
+        // validation is already done with HTML5 but just in case someone tries to hack the form
+        if (title && moment(due_date, ["YYYY-MM-DD"], true).isValid()) {
              // validation successfull
-            if ( !notes_str ) {
-                // if there is no notesdata saved, init it
-                localStorage.setItem("notesdata", JSON.stringify([]));
-                var notes_str = localStorage.getItem("notesdata"),
-                    new_id = 1;
-            }
-            var notes_list  = JSON.parse(notes_str),
-                maxid       = Math.max.apply(Math, notes_list.map(function(obj){return obj.id;})),
-                newid       = new_id || maxid + 1,
-                new_note    = {'id':newid,
-                    'title':title,
-                    'description':description,
-                    'finish_date':null,
-                    'due_date':due_date,
-                    'importance':importance,
-                    'created_date':new Date(),
-                    'is_finished': false
-                }
-            notes_list.push(new_note);
-            localStorage.setItem("notesdata", JSON.stringify(notes_list));
+            saveNote(title, description, null, due_date, null, false, importance)
             window.location.replace('index.html');
         } else {
             // validation failed
             // just stay at form and show HTML5 validation messages for input fields
         }
     });
-
 
 
     // listen to the "Finished" checkboxes and update note according to checkbox status

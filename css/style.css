@@ -4,8 +4,9 @@ body {
     flex-direction: column;  /* senkrechte ausrichtung */
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 0.9em;
-    min-height: 100vh; /* damit sich der body über die gesamte Höhe des Viewports erstreckt und der Footer unten fixiert bleibt */
-    margin: 0 auto; /* entfernt Außenabstand, sodass keine Scrollbalken entstehen */
+    min-height: 100vh;  /* damit sich der body über die gesamte Höhe des Viewports erstreckt und der Footer unten fixiert bleibt */
+    margin: 0 auto;     /* entfernt Außenabstand, sodass keine Scrollbalken entstehen */
+    max-width: 1000px;  /* erlaubt Umbruch Label/Input felder bei addNote; mit width:1000px klappt das nicht */
 }
 div {
     padding: 4px;
@@ -166,7 +167,7 @@ div.note-item:nth-child(odd)
 
 .note-importance {
     float:right;
-    width: 70px;
+    width: 110px;
 }
 
 .note-description {

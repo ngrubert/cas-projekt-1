@@ -32,8 +32,7 @@
 <main>
   <div id="addform-container">
     <!-- main content -->
-
-    <form action="" name="addform" id="addform" class="addform" method="post">
+    <form action="index.html" name="addform" id="addform" class="addform" method="post">
       <ul>
         <li>
             <h2>Add new note</h2>
@@ -48,8 +47,9 @@
             <label for="field-description">Description:</label>
             <textarea name="description" id="field-description" tabindex="2" placeholder="Description" cols="40" rows="6"></textarea>
         </li>
-        <li><label for="field-finish_date">Due Date:</label>
-            <input type="date" name="finish_date" id="field-finish_date" tabindex="3" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" placeholder="YYYY-MM-DD" required>
+        <li><label for="field-due_date">Due Date:</label>
+            <input type="date" name="due_date" id="field-due_date" tabindex="3" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                   placeholder="YYYY-MM-DD" required>
         </li>
         <li><label for="importance">Importance:</label>
               <div id="importance" class="rating">
@@ -67,13 +67,15 @@
         </li>
         <li class="center">
             <label for="add-btn"></label>
+            <button type="submit" name="create" id="add-btn" class="btn btn-action">Create</button>
             <button type="button" name="cancel" id="cancel-btn" class="btn btn-inactive">Cancel</button>
-            <button type="button" name="create" id="add-btn" class="btn btn-action">Create</button>
+
         </li>
       </ul>
     </form>
   </div>
 </main>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 </body>
