@@ -9,48 +9,59 @@ if (notestemplate) {
 }
 
 function initDummyNotes() {
-    /* create some dummy records to start
-       'due_date' is the deadline when the task should be finished
-       'finish_date' is the date when the user has ticked the 'Finished' checkbox
-       due_date and created_date are set to future dates using the moment JS library
-    */
+    /**
+     * create some dummy records to start
+     * 'due_date' is the deadline when the task should be finished
+     * 'finish_date' is the date when the user has ticked the 'Finished' checkbox
+     * due_date and created_date are set to future dates using the moment JS library
+     */
     var today = new Date(),
         dummy_notes = [
-           {"id":1,
-            "due_date":new moment(today, "YYYY-MM-DD").add(3, 'days'),
-            "created_date":new moment(today, "YYYY-MM-DD").add(1, 'days'),
-            "title":"Einkaufen",
-            "description":"Obst, Gemüse, Poulet",
-            "is_finished":true,
-            "importance":4},
-           {"id":2,
-            "due_date":new moment(today, "YYYY-MM-DD").add(4, 'days'),
-            "created_date":new moment(today, "YYYY-MM-DD").add(2, 'days'),
-            "title":"Auto waschen",
-            "description":"Unterbodenwäsche nicht vergessen.",
-            "is_finished":false,
-            "importance":1},
-           {"id":3,
-            "due_date":new moment(today, "YYYY-MM-DD").add(5, 'days'),
-            "created_date":new moment(today, "YYYY-MM-DD").add(3, 'days'),
-            "title":"Spanisch Kurs am Abend besuchen",
-            "description":"Lektion von letzter Woche nochmal durchgehen.",
-            "is_finished":false,
-            "importance":2},
-           {"id":4,
-            "due_date":new moment(today, "YYYY-MM-DD").add(1, 'days'),
-            "created_date":new moment(today, "YYYY-MM-DD").add(4, 'days'),
-            "title":"Blumen giessen",
-            "description":"Drachenbaum dieses Mal kein Wasser geben.",
-            "is_finished":false,
-            "importance":3},
-           {"id":5,
-            "due_date":new moment(today, "YYYY-MM-DD").add(8, 'days'),
-            "created_date":new moment(today, "YYYY-MM-DD").add(5, 'days'),
-            "title":"Mit der Katze zum Tierarzt fahren",
-            "description":"Impfpass mitnehmen und Medikamente vom Tierarzt mitnehmen.",
-            "is_finished":false,
-            "importance":5}
+           {
+               "id":1,
+                "due_date":new moment(today, "YYYY-MM-DD").add(3, 'days'),
+                "created_date":new moment(today, "YYYY-MM-DD").add(1, 'days'),
+                "title":"Einkaufen",
+                "description":"Obst, Gemüse, Poulet, Mineralwasser",
+                "is_finished":true,
+                "importance":4
+           },
+           {
+                "id":2,
+                "due_date":new moment(today, "YYYY-MM-DD").add(4, 'days'),
+                "created_date":new moment(today, "YYYY-MM-DD").add(2, 'days'),
+                "title":"Auto waschen",
+                "description":"Unterbodenwäsche nicht vergessen.",
+                "is_finished":false,
+                "importance":1
+           },
+           {
+                "id":3,
+                "due_date":new moment(today, "YYYY-MM-DD").add(8, 'days'),
+                "created_date":new moment(today, "YYYY-MM-DD").add(3, 'days'),
+                "title":"Mit der Katze zum Tierarzt fahren",
+                "description":"Impfpass mitnehmen und Medikamente beim Tierarzt kaufen.",
+                "is_finished":false,
+                "importance":5
+           },
+           {
+                "id":4,
+                "due_date":new moment(today, "YYYY-MM-DD").add(1, 'days'),
+                "created_date":new moment(today, "YYYY-MM-DD").add(4, 'days'),
+                "title":"Blumen giessen",
+                "description":"Dem Drachenbaum und Kaktus dieses Mal kein Wasser geben.",
+                "is_finished":false,
+                "importance":3
+           },
+            {
+                 "id":5,
+                 "due_date":new moment(today, "YYYY-MM-DD").add(5, 'days'),
+                 "created_date":new moment(today, "YYYY-MM-DD").add(5, 'days'),
+                 "title":"Spanisch Kurs am Abend besuchen",
+                 "description":"Lektion von letzter Woche nochmal durchgehen.",
+                 "is_finished":false,
+                 "importance":2
+            }
     ];
     // create dummy entries
     for (var i = 0, l = dummy_notes.length; i < l; i++) {
@@ -60,8 +71,25 @@ function initDummyNotes() {
     return dummy_notes
 }
 
+
+function changeStylesheet() {
+    var selectedStylesheet = $('#stylesheet-selector').val();
+    localStorage.setItem('cssName', selectedStylesheet);
+    $('#css-style').attr("href", 'css/' + selectedStylesheet + '.css');
+}
+
+function loadStylesheet() {
+    var currentStylesheet = localStorage.getItem('cssName');
+    if (!currentStylesheet) {
+        localStorage.setItem('cssName', 'default');
+    }
+    var currentStylesheet = localStorage.getItem('cssName');
+    $('#css-style').attr('href', 'css/' + currentStylesheet + '.css');
+    $('#stylesheet-selector').val(currentStylesheet).change();
+}
+
 function saveNote(title, description, created_date, due_date, finish_date, is_finished, importance) {
-    notes_str = localStorage.getItem("notesdata");
+    var notes_str = localStorage.getItem("notesdata");
     if ( !notes_str ) {
         // if there is no notesdata saved then init it
         localStorage.setItem("notesdata", JSON.stringify([]));
@@ -79,15 +107,47 @@ function saveNote(title, description, created_date, due_date, finish_date, is_fi
                         'finish_date': finish_date,
                         'is_finished': is_finished,
                         'importance': importance
-                        }
+                        };
     notes_list.push(new_note);
     localStorage.setItem("notesdata", JSON.stringify(notes_list));
 }
 
+function updateNote(id, title, description, created_date, due_date, finish_date, is_finished, importance) {
+    var notes_str = localStorage.getItem("notesdata"),
+        notes_list  = JSON.parse(notes_str),
+        note = {'id': Number(id),
+                'title': title,
+                'description': description,
+                'created_date': created_date || new Date(),
+                'due_date': due_date,
+                'finish_date': finish_date,
+                'is_finished': is_finished,
+                'importance': importance
+                };
+    for (var i = 0; i < notes_list.length; i++) {
+        if(Number(id) === Number(notes_list[i].id)){
+            notes_list[i] = note;
+            break;
+        }
+
+    }
+    localStorage.setItem("notesdata", JSON.stringify(notes_list));
+}
+
+
 function getNotesData() {
-    var notes_str  = localStorage.getItem("notesdata") || JSON.stringify(initDummyNotes()),
-        notes_list = JSON.parse(notes_str);
-    return notes_list
+    var notes_str  = localStorage.getItem("notesdata") || JSON.stringify(initDummyNotes());
+    return JSON.parse(notes_str);
+}
+
+function getNoteById(id) {
+    var id = Number(id),
+        notes = getNotesData();
+    for (var i = 0; i < notes.length; i++) {
+        if(id === notes[i].id){
+            return notes[i];
+        }
+    }
 }
 
 function renderNotes(sortby) {
@@ -114,8 +174,12 @@ function renderNotes(sortby) {
     $("#notes-container").html(createNotesTemplate(filtered_notes.sort(sortfunc)));
 }
 
-function editNote(id) {
-    console.log('Edit note with id = ' + id);
+function editNote(event) {
+    var note_id = event.target.dataset.id;
+    sessionStorage.setItem('NoteIdToEdit', note_id);
+    if (note_id) {
+        window.location.assign("editNote.html?id=" + note_id);
+    }
 }
 
 function sortbyEventHandler(event) {
@@ -146,17 +210,25 @@ function updateNoteFinishedStatus(id) {
     renderNotes();
 }
 
-// define event handlers
+
 $(function(){
+
+    loadStylesheet();
+
     if (notestemplate) {
-        // try to get the sortby from session; if its not set use default ('finish_date')
+        // try to get the sortby from session; if its not set use default ('due_date')
         var sortby = sessionStorage.getItem('sortby') || 'due_date';
         // save sortby to session
         sessionStorage.setItem('sortby', sortby);
         renderNotes(sortby);
         $('#sortby').on('click', 'button', sortbyEventHandler);
         $('#toggle-finished').on('click', 'button', filterFinished);
-    };
+    }
+
+    /* -------------------------------------------------------
+     Event handlers
+     --------------------------------------------------------
+     */
 
     $('#cancel-btn').click(function() {
         window.location.replace('index.html');
@@ -171,13 +243,17 @@ $(function(){
         // validation is already done with HTML5 but just in case someone tries to hack the form
         if (title && moment(due_date, ["YYYY-MM-DD"], true).isValid()) {
              // validation successfull
-            saveNote(title, description, null, due_date, null, false, importance)
+            saveNote(title, description, null, due_date, null, false, importance);
             window.location.replace('index.html');
         } else {
             // validation failed
             // just stay at form and show HTML5 validation messages for input fields
         }
     });
+
+    $('.note-actions').click(editNote);
+
+    $('#stylesheet-selector').on('change', changeStylesheet);
 
 
     // listen to the "Finished" checkboxes and update note according to checkbox status

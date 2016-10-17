@@ -9,7 +9,7 @@
     <meta name="description" content="CAS FEE - Notizenapplikation">
     <!-- sorgt dafür, dass sich die Seite an den Viewport anpasst -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" media="screen" href="css/style.css">
+    <link type="text/css" rel="stylesheet" id="css-style" media="screen" href="css/default.css">
 </head>
 <body>
 
@@ -20,9 +20,9 @@
         <div><h2>Notizen-Applikation</h2></div>
         <div>
             <span class="dropdown">
-                <select name="color-style" title="Color style">
-                    <option value="bw">Black-White-Style</option>
-                    <option value="col">Colored-Style</option>
+                <select id="stylesheet-selector" name="stylesheet" title="Style">
+                    <option value="default">Default-Style</option>
+                    <option value="black">Black-White-Style</option>
                 </select>
             </span>
         </div>
@@ -46,7 +46,7 @@
 <script id="notes-template" type="text/x-handlebars-template">
     {{#each this}}
     <div class="note-item">
-        <div class="left">
+        <div class="note-date">
             <div>{{formatDate this.due_date "DD.MM.YYYY"}}</div>
             <div>{{#if this.is_finished}}
                   <input id="finished-{{id}}" type="checkbox" value="{{id}}" onclick="updateNoteFinishedStatus('{{id}}')" checked>
@@ -57,14 +57,14 @@
                 {{/if}}
             </div>
         </div>
-        <div class="middle">
+        <div class="note-information">
             <div class="title-wrapper">
                 <div class="note-title">{{this.title}}</div>
                 <div class="note-importance"><img src="images/importance-{{this.importance}}.png"></div>
             </div>
             <p class="note-description">{{this.description}}</p>
         </div>
-        <div><p><button id="edit-note-btn" class="btn btn-action" onclick="editNote({{this.id}})">Edit</button></p></div>
+        <div class="note-actions"><p><button id="edit-note-btn" data-id="{{this.id}}" class="btn btn-action" onclick="editNote({{this.id}})">Edit</button></p></div>
     </div>
     {{/each}}
 </script>
