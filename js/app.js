@@ -1,4 +1,5 @@
 var notestemplate = document.getElementById("notes-template");
+// I find this more readable than JQuery statement: if ( $('#notes-template').length) )
 if (notestemplate) {
     var createNotesTemplate = Handlebars.compile(notestemplate.innerText);
     // provide helper function to format date; requires moment.js library
@@ -174,14 +175,6 @@ function renderNotes(sortby) {
     $("#notes-container").html(createNotesTemplate(filtered_notes.sort(sortfunc)));
 }
 
-function editNote(event) {
-    var note_id = event.target.dataset.id;
-    sessionStorage.setItem('NoteIdToEdit', note_id);
-    if (note_id) {
-        window.location.assign("editNote.html?id=" + note_id);
-    }
-}
-
 function sortbyEventHandler(event) {
     var sortby = event.target.getAttribute('data-sortby');
     // update sortby in session
@@ -210,6 +203,13 @@ function updateNoteFinishedStatus(id) {
     renderNotes();
 }
 
+function editNote(note_id) {
+    console.log("Edit Note Id: " + note_id);
+    sessionStorage.setItem('NoteIdToEdit', note_id);
+    if (note_id) {
+        window.location.assign("editNote.html?id=" + note_id);
+    }
+}
 
 $(function(){
 
@@ -251,10 +251,17 @@ $(function(){
         }
     });
 
-    $('.note-actions').click(editNote);
+    /* $('.edit-button').click(function(event) {
+        var note_id = event.target.getAttribute('data-id');
+        console.log("Edit Note Id: " + note_id);
+        sessionStorage.setItem('NoteIdToEdit', note_id);
+        if (note_id) {
+            var x = note_id;
+            // window.location.assign("editNote.html?id=" + note_id);
+        }
+    }); */
 
     $('#stylesheet-selector').on('change', changeStylesheet);
-
 
     // listen to the "Finished" checkboxes and update note according to checkbox status
     /* DOES NOT work anymore after is has been run once - don't know why
