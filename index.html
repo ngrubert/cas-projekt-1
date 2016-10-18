@@ -30,10 +30,11 @@
     <!-- filter -->
     <div id="filter-sortby-container">
       <div id="sortby">
-        <button data-sortby="due_date"     id="due_date"     class="btn btn-inactive">By due date</button>
+        <button data-sortby="due_date" id="due_date" class="btn btn-inactive">By due date</button>
         <button data-sortby="created_date" id="created_date" class="btn btn-inactive">By created date</button>
-        <button data-sortby="importance"   id="importance"   class="btn btn-inactive">By importance</button>
+        <button data-sortby="importance" id="importance" class="btn btn-inactive">By importance</button>
       </div>
+      <!-- <div><button data-sortorder="desc" id="sortorder" class="btn btn-active">Desc</button></div> -->
       <div id="toggle-finished"><button type="button" data-sortby="show_finished" id="show-finished-btn" class="btn btn-inactive">Show finished</button></div>
     </div>
 </header>
@@ -59,12 +60,12 @@
         </div>
         <div class="note-information">
             <div class="title-wrapper">
-                <div class="note-title">{{this.title}}</div>
-                <div class="note-importance"><img src="images/importance-{{this.importance}}.png"></div>
+                <div class="note-title">{{title}}</div>
+                <div class="note-importance"><img src="images/importance-{{importance}}.png"></div>
             </div>
-            <p class="note-description">{{this.description}}</p>
+            <p class="note-description">{{description}}</p>
         </div>
-        <div class="note-actions"><p><button id="edit-note-btn" data-id="{{this.id}}" class="btn btn-action" onclick="editNote({{this.id}})">Edit</button></p></div>
+        <div><p><button id="edit-note-btn" data-id="{{id}}" class="btn btn-action edit-button" onClick="editNote('{{id}}')">Edit</button></p></div>
     </div>
     {{/each}}
 </script>
