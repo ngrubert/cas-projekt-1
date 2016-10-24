@@ -43,6 +43,10 @@ main {
     padding: 10px;
 }
 
+#toggle-sortorder {
+    padding-left: 20px;
+  }
+
 #toggle-finished {
     margin-left: auto;
 }
@@ -161,6 +165,10 @@ div.note-item:nth-child(odd)
     overflow: hidden;
 }
 
+.note-actions {
+    padding: 4px;
+}
+
 .title-wrapper {
     display: inline;
 }
@@ -179,6 +187,10 @@ div.note-item:nth-child(odd)
     padding: 4px;
 }
 
+.creationdate {
+    font-size: 0.9em;
+    color: #888;
+}
 /* /notes listing */
 
 /* === add form === */

@@ -57,16 +57,17 @@
                   <label for="finished-{{id}}">Finished</label>
                 {{/if}}
             </div>
+            <div class="creationdate">Created at {{formatDate creation_date "DD.MM.YYYY"}}</div>
         </div>
         <div class="note-information">
             <div class="title-wrapper">
                 <div class="note-title">{{title}}</div>
-                <div class="note-importance"><img src="images/importance-{{importance}}.png"></div>
+                <div class="note-importance"><img src="images/importance-{{importance}}.png" alt="importance-{{importance}}"></div>
             </div>
             <p class="note-description">{{description}}</p>
         </div>
-        <div>
-            <p><button data-id="{{id}}" class="btn btn-action edit-button">Edit</button></p>
+        <div class="note-actions">
+            <button data-id="{{id}}" class="btn btn-action edit-button">Edit</button>
         </div>
     </div>
     {{/each}}
