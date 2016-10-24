@@ -18,8 +18,10 @@
         }
 
         function _getNoteById(id) {
+
             var id = Number(id),
                 notes = _getNotesData();
+            // return notes.find(each => each.id === id);
             for (var i = 0; i < notes.length; i++) {
                 if(id === notes[i].id){
                     return notes[i];

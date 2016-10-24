@@ -34,42 +34,52 @@ function initDefaultNotes() {
 }
 
 function loadStylesheet() {
-    var currentStylesheet = localStorage.getItem('cssName');
-    if (!currentStylesheet) {
+    var current_stylesheet = localStorage.getItem('cssName');
+    if (!current_stylesheet) {
         localStorage.setItem('cssName', 'default');
     }
-    var currentStylesheet = localStorage.getItem('cssName');
-    $('#css-style').attr('href', 'css/' + currentStylesheet + '.css');
-    $('#stylesheet-selector').val(currentStylesheet).change();
+    var current_stylesheet = localStorage.getItem('cssName');
+    $('#css-style').attr('href', 'css/' + current_stylesheet + '.css');
+    $('#stylesheet-selector').val(current_stylesheet).change();
 }
 
 function renderNotes(sortby) {
     setupHandlebars();
     // take passed sortby or try to get the sortby from session; if its not set use default ('due_date')
-    var sortby = sortby || sessionStorage.getItem('sortby') || 'due_date';
+    var sortby = sortby || sessionStorage.getItem('sortby') || 'due_date',
+        sortorder = sortorder || sessionStorage.getItem('sortorder') || 'asc';
     // save sortby to session
     sessionStorage.setItem('sortby', sortby);
+    sessionStorage.setItem('sortorder', sortorder);
     var notes = NSNotes.Storage.getNotesData();
-
     // set all active buttons inactive
-    $('#sortby').find('.btn-active').removeClass('btn-active')
-        .addClass('btn-inactive');
+    $('#sortby').find('.btn-active')
+                .removeClass('btn-active')
+                .addClass('btn-inactive');
     // activate the clicked button
-    $('#'+sortby).removeClass('btn-inactive').addClass('btn-active');
+    $('#'+sortby).removeClass('btn-inactive')
+                 .addClass('btn-active');
     // create generic sort function
-    var sortfunc = function(n1,n2) { return n1[sortby] < n2[sortby] };
+    var sortfunc = function(n1,n2) {
+        if (sortorder == 'asc') {
+            return n1[sortby] > n2[sortby]
+        }
+        else {
+            return n1[sortby] < n2[sortby]
+        }
+    }
     // filter notes list according to [Show finished] button
-    if (!$('#show-finished-btn').hasClass('btn-active')) {
+    if (!$('#btn-show-finished').hasClass('btn-active')) {
         // show only notes which are not finished
         var filtered_notes = notes.filter(obj => obj.is_finished == false);
     } else {
         // show all notes including finished ones
         var filtered_notes = notes;
     };
-    // render template and pass the filtered_notes which is sorted with sortfunc alias
+    // render template and pass filtered_notes which is sorted with sortfunc alias
     var notestemplate = document.getElementById("notes-template"),
-        createNotesTemplate = Handlebars.compile(notestemplate.innerText);
-    $("#notes-container").html(createNotesTemplate(filtered_notes.sort(sortfunc)));
+        create_notes_template = Handlebars.compile(notestemplate.innerText);
+    $("#notes-container").html(create_notes_template(filtered_notes.sort(sortfunc)));
 }
 
 
@@ -89,8 +99,23 @@ $(function() {
         renderNotes();
     })
 
+    $('#toggle-sortorder').click(function() {
+        var sortorder = sessionStorage.getItem('sortorder'),
+            btn_sortorder = $('#btn-sortorder');
+        if (sortorder === 'asc') {
+            sessionStorage.setItem('sortorder', 'desc');
+            btn_sortorder.text('Desc');
+        }
+        else if (sortorder === 'desc') {
+            sessionStorage.setItem('sortorder', 'asc');
+            btn_sortorder.text('Asc');
+        }
+        renderNotes();
+    })
+
+
     $('#toggle-finished').click(function() {
-        $('#show-finished-btn').toggleClass('btn-inactive btn-active');
+        $('#btn-show-finished').toggleClass('btn-inactive btn-active');
         renderNotes();
     })
 
