@@ -1,8 +1,8 @@
 'use strict';
 
-var HandlebarModule = (function() {
+var HandlebarHelpers = (function() {
 
-        function _setup() {
+        function _setHelpers() {
             // provide helper function to format date; requires moment.js library
             Handlebars.registerHelper('formatDueDate', function (date, format) {
                 var m_date = moment(date),
@@ -26,7 +26,7 @@ var HandlebarModule = (function() {
         }
 
          return {
-             setup: _setup
+             setHelpers: _setHelpers
          };
 
 })();

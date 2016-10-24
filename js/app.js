@@ -62,7 +62,7 @@ function renderNotes(sortby) {
 $(function() {
     // run when DOM is loaded
     loadStylesheet();
-    HandlebarModule.setup();
+    HandlebarHelpers.setHelpers();
     renderNotes();
 
     /* -------------------------------------------------------
