@@ -318,3 +318,13 @@ div.note-item:nth-child(odd)
 .rating:not(:hover) > :checked ~ label:before{
     opacity : 1;
 }
+
+/* === misc === */
+
+.hurry {
+    color: #ff3d38;
+}
+
+.center {
+    text-align: center;
+}

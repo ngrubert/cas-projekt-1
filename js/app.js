@@ -33,13 +33,6 @@ function initDefaultNotes() {
     return default_notes
 }
 
-
-function changeStylesheet() {
-    var selectedStylesheet = $('#stylesheet-selector').val();
-    localStorage.setItem('cssName', selectedStylesheet);
-    $('#css-style').attr("href", 'css/' + selectedStylesheet + '.css');
-}
-
 function loadStylesheet() {
     var currentStylesheet = localStorage.getItem('cssName');
     if (!currentStylesheet) {
@@ -79,25 +72,6 @@ function renderNotes(sortby) {
     $("#notes-container").html(createNotesTemplate(filtered_notes.sort(sortfunc)));
 }
 
-function sortbyEventHandler(event) {
-    var sortby = event.target.getAttribute('data-sortby');
-    // update sortby in session
-    sessionStorage.setItem('sortby', sortby);
-    renderNotes(sortby);
-}
-
-function filterFinished() {
-    $('#show-finished-btn').toggleClass('btn-inactive btn-active');
-    renderNotes();
-}
-
-function editNote(note_id) {
-    sessionStorage.setItem('NoteIdToEdit', note_id);
-    if (note_id) {
-        window.location.assign("editNote.html?id=" + note_id);
-    }
-}
-
 
 $(function() {
     // run when DOM is loaded
@@ -108,22 +82,37 @@ $(function() {
      Event handlers
      --------------------------------------------------------
      */
-    $('#sortby').click(sortbyEventHandler);
-    $('#toggle-finished').click(filterFinished);
-    $('#stylesheet-selector').on('change', changeStylesheet);
-    $('.note-date input:checkbox').click(function() {
+
+    $('#sortby').on('click', '.btn', function(event) {
+        var sortby = event.target.getAttribute('data-sortby');
+        sessionStorage.setItem('sortby', sortby);
+        renderNotes();
+    })
+
+    $('#toggle-finished').click(function() {
+        $('#show-finished-btn').toggleClass('btn-inactive btn-active');
+        renderNotes();
+    })
+
+    $('#stylesheet-selector').on('change', function() {
+        var selectedStylesheet = $('#stylesheet-selector').val();
+        localStorage.setItem('cssName', selectedStylesheet);
+        $('#css-style').attr("href", 'css/' + selectedStylesheet + '.css');
+    })
+
+    $('#notes-container').on('click', '.chk-finished', function() {
         var cb = $(this),
             status = cb.is(':checked');
         NSNotes.Storage.updateNoteFinishedStatus(cb.val(), status);
         renderNotes();
     })
+
     $('#notes-container').on('click', '.edit-button', function() {
-            var note_id = event.target.getAttribute('data-id');
-            sessionStorage.setItem('NoteIdToEdit', note_id);
-            if (note_id) {
-                window.location.assign("editNote.html");
-            }
+        var note_id = event.target.getAttribute('data-id');
+        sessionStorage.setItem('NoteIdToEdit', note_id);
+        if (note_id) {
+            window.location.assign("editNote.html");
+        }
     })
 
-    //$('input:checkbox').click(function() {
 });
