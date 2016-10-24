@@ -21,11 +21,7 @@ Erstellen einer Notizenapplikation
 
 ToDos:
 ======
-- Stylesheet umschaltbar machen
-- Edit Funktion implementieren
-- Funktionen in einzelne Module auslagern
-  Email von Michael Gfeller dazu:
-    Mit dem Module-Pattern und Namespace Pattern könnt ihr euren Code auf dem Client strukturieren.
-    Definiert für das Speichern und Laden vom LocalStorage ein eigenes Modul. Zusätzlich könnt ihr noch einen Namespace verwenden um Namenskonflikte zu vermeiden.
-    Ein weiteres Modul kann das LocalStorage -Modul verwenden um die Todos zu verwalten. Z.B. TodoService.
-    Dieser Umbau hilft um später den Server anzubinden.
+- Speichern in NoSQL DB
+- Node Server implementieren
+- CSS und HTML Validation
+- Bemerkungen von Tobias Blaser umsetzen

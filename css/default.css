@@ -6,7 +6,7 @@ body {
     font-size: 0.9em;
     min-height: 100vh;  /* stretch body over the full height of viewport and fix the footer at the bottom of the page */
     margin: 0 auto;     /* removes outer space so we dont have a scrollbar*/
-    max-width: 1000px;  /* enable automatic wrapping of labels and input fields if users resizes the window */
+    max-width: 1200px;  /* enable automatic wrapping of labels and input fields if users resizes the window */
 }
 div {
     padding: 4px;
@@ -120,6 +120,10 @@ main {
     border-color: #ccc;
     color: #fff;
 }
+
+.edit-button {
+    /* is defining a CSS class that is used in HTML file a must ? */
+}
 /* /buttons */
 
 /* === notes listing === */
@@ -148,11 +152,11 @@ div.note-item:nth-child(odd)
 }
 
 .note-date  {
-    width:200px;
+    width: 240px;
 }
 
 .note-information {
-    width:70%;
+    width: 70%;
     display: block;
     overflow: hidden;
 }
@@ -175,14 +179,7 @@ div.note-item:nth-child(odd)
     padding: 4px;
 }
 
-.note-actions {
-    padding: 4px;
-}
-
-
 /* /notes listing */
-
-/* === add form === */
 
 /* === add form === */
 #addform-container {
@@ -273,10 +270,6 @@ div.note-item:nth-child(odd)
 .addform input:required:valid + .form_hint {background: #28921f;}
 .addform input:required:valid + .form_hint::before {color:#28921f;}
 
-.center {
-    text-align: center;
-}
-
 /* === rating of importance === */
 .rating {
     display: inline-block;
@@ -315,4 +308,14 @@ div.note-item:nth-child(odd)
 .rating:not(old) > label:hover ~ label:before,
 .rating:not(:hover) > :checked ~ label:before{
     opacity : 1;
+}
+
+/* === misc === */
+
+.hurry {
+    color: #ff3d38;
+}
+
+.center {
+    text-align: center;
 }
