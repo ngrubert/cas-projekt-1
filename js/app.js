@@ -1,3 +1,5 @@
+'use strict';
+
 function initDefaultNotes() {
     /**
      * create some dummy records to start

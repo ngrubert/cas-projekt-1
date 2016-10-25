@@ -1,8 +1,7 @@
-/**
- * Created by nico grubert on 19.10.16.
- */
+'use strict';
 
 /**
+ * Created by nico grubert on 19.10.16.
  * define some dummy records to start
  * "due_date" is the deadline when the task should be finished
  * "finish_date" is the date when the user has ticked the "Finished" checkbox
