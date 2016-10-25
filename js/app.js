@@ -11,11 +11,11 @@ function initDefaultNotes() {
 }
 
 function loadStylesheet() {
-    var current_stylesheet = localStorage.getItem('cssName');
+    var current_stylesheet = localStorage.getItem('cssname');
     if (!current_stylesheet) {
-        localStorage.setItem('cssName', 'default');
+        sessionStorage.setItem('cssname', 'default');
     }
-    var current_stylesheet = localStorage.getItem('cssName');
+    var current_stylesheet = sessionStorage.getItem('cssname');
     $('#css-style').attr('href', 'css/' + current_stylesheet + '.css');
     $('#stylesheet-selector').val(current_stylesheet).change();
 }
@@ -53,8 +53,8 @@ function renderNotes(sortby) {
         var filtered_notes = notes;
     };
     // render template and pass filtered_notes which is sorted with sortfunc alias
-    var notestemplate = document.getElementById("notes-template"),
-        create_notes_template = Handlebars.compile(notestemplate.innerText);
+    var notestemplate = $('#notes-template'),
+        create_notes_template = Handlebars.compile(notestemplate.text());
     $("#notes-container").html(create_notes_template(filtered_notes.sort(sortfunc)));
 }
 
@@ -62,7 +62,7 @@ function renderNotes(sortby) {
 $(function() {
     // run when DOM is loaded
     loadStylesheet();
-    HandlebarHelpers.setHelpers();
+    NSNotes.HandlebarHelpers.setHelpers();
     renderNotes();
 
     /* -------------------------------------------------------
@@ -90,7 +90,6 @@ $(function() {
         renderNotes();
     })
 
-
     $('#toggle-finished').click(function() {
         $('#btn-show-finished').toggleClass('btn-inactive btn-active');
         renderNotes();
@@ -98,7 +97,7 @@ $(function() {
 
     $('#stylesheet-selector').on('change', function() {
         var selectedStylesheet = $('#stylesheet-selector').val();
-        localStorage.setItem('cssName', selectedStylesheet);
+        sessionStorage.setItem('cssname', selectedStylesheet);
         $('#css-style').attr("href", 'css/' + selectedStylesheet + '.css');
     })
 

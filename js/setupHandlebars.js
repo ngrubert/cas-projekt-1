@@ -1,6 +1,6 @@
 'use strict';
-
-var HandlebarHelpers = (function() {
+(function(NSNotes) {
+    NSNotes.HandlebarHelpers = (function() {
 
         function _setHelpers() {
             // provide helper function to format date; requires moment.js library
@@ -25,8 +25,9 @@ var HandlebarHelpers = (function() {
             });
         }
 
-         return {
-             setHelpers: _setHelpers
-         };
+        return {
+            setHelpers: _setHelpers
+        };
 
-})();
+    })();
+}(window.NSNotes = window.NSNotes || {}));
