@@ -72,7 +72,7 @@ $(function() {
         renderNotes();
     })
 
-    $('#toggle-sortorder').click(function() {
+    $('#btn-sortorder').click(function() {
         var sortorder = sessionStorage.getItem('sortorder'),
             btn_sortorder = $('#btn-sortorder');
         if (sortorder === 'asc') {
@@ -86,7 +86,7 @@ $(function() {
         renderNotes();
     })
 
-    $('#toggle-finished').click(function() {
+    $('#btn-show-finished').click(function() {
         $('#btn-show-finished').toggleClass('btn-inactive btn-active');
         renderNotes();
     })
