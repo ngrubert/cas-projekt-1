@@ -2,7 +2,6 @@
 
 (function(NSNotes) {
     NSNotes.HandlebarHelpers = (function() {
-
         function _setHelpers() {
             // provide helper function to format date; requires moment.js library
             Handlebars.registerHelper('formatDueDate', function (date, format) {
@@ -25,10 +24,24 @@
                 return mmnt.format(format)
             });
         }
-
         return {
             setHelpers: _setHelpers
         };
 
+    })(),
+
+    NSNotes.Stylesheet = (function() {
+        function _loadStylesheet() {
+            var current_stylesheet = sessionStorage.getItem('cssname');
+            if (!current_stylesheet) {
+                sessionStorage.setItem('cssname', 'default');
+            }
+            var current_stylesheet = sessionStorage.getItem('cssname');
+            $('#css-style').attr('href', 'css/' + current_stylesheet + '.css');
+            $('#stylesheet-selector').val(current_stylesheet).change();
+        }
+        return {
+            loadStylesheet: _loadStylesheet
+        };
     })();
 }(window.NSNotes = window.NSNotes || {}));

@@ -12,16 +12,6 @@ function initDefaultNotes() {
     return default_notes
 }
 
-function loadStylesheet() {
-    var current_stylesheet = sessionStorage.getItem('cssname');
-    if (!current_stylesheet) {
-        sessionStorage.setItem('cssname', 'default');
-    }
-    var current_stylesheet = sessionStorage.getItem('cssname');
-    $('#css-style').attr('href', 'css/' + current_stylesheet + '.css');
-    $('#stylesheet-selector').val(current_stylesheet).change();
-}
-
 function renderNotes(sortby) {
     // take passed sortby or try to get the sortby from session; if its not set use default ('due_date')
     var sortby = sortby || sessionStorage.getItem('sortby') || 'due_date',
@@ -63,7 +53,7 @@ function renderNotes(sortby) {
 
 $(function() {
     // run when DOM is loaded
-    loadStylesheet();
+    NSNotes.Stylesheet.loadStylesheet();
     NSNotes.HandlebarHelpers.setHelpers();
     renderNotes();
 

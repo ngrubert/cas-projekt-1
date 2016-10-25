@@ -4,6 +4,8 @@
  * Created by nico grubert on 20.10.16.
  */
 
+NSNotes.Stylesheet.loadStylesheet();
+
 $('#cancel-btn').click(function() {
     window.location.replace('index.html');
 });

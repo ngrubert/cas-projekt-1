@@ -4,6 +4,7 @@
  * Created by nico grubert on 14.10.16.
  */
 
+NSNotes.Stylesheet.loadStylesheet();
 var note_id = sessionStorage.getItem('NoteIdToEdit'),
     note = NSNotes.Storage.getNoteById(note_id);
 $('#field-title').attr('value', note.title);
