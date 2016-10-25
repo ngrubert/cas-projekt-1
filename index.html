@@ -49,13 +49,9 @@
     <div class="note-item">
         <div class="note-date">
             <div>{{formatDueDate due_date "DD.MM.YYYY"}}</div>
-            <div>{{#if is_finished}}
-                  <input id="finished-{{id}}" type="checkbox" value="{{id}}" class="chk-finished" checked>
-                  <label for="finished-{{id}}">Finished at {{formatDate finish_date "DD.MM.YYYY"}}</label>
-                {{else}}
-                  <input id="finished-{{id}}" type="checkbox" value="{{id}}" class="chk-finished">
-                  <label for="finished-{{id}}">Finished</label>
-                {{/if}}
+            <div>
+                  <input id="finished-{{id}}" type="checkbox" value="{{id}}" class="chk-finished" {{#if is_finished}}checked{{/if}}>
+                  <label for="finished-{{id}}">Finished{{#if is_finished}} at {{formatDate finish_date "DD.MM.YYYY"}}{{/if}}</label>
             </div>
             <div class="creationdate">Created at {{formatDate creation_date "DD.MM.YYYY"}}</div>
         </div>
