@@ -11,7 +11,7 @@ function initDefaultNotes() {
 }
 
 function loadStylesheet() {
-    var current_stylesheet = localStorage.getItem('cssname');
+    var current_stylesheet = sessionStorage.getItem('cssname');
     if (!current_stylesheet) {
         sessionStorage.setItem('cssname', 'default');
     }
