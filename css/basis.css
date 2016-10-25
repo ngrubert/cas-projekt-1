@@ -57,7 +57,6 @@ main {
 
 /* === buttons === */
 .btn {
-    -moz-user-select: none;
     background-image: none;
     border: 1px solid transparent;
     border-radius: 4px;
@@ -167,8 +166,6 @@ main {
 .addform ul {
     list-style-position: outside;
     list-style-type: none;
-    margin: 0px;
-    padding: 0px;
 }
 .addform li {
     border-bottom: 1px solid #eee;
@@ -212,7 +209,7 @@ main {
 
 .addform input, .addform textarea {
     border: 1px solid #aaa;
-    box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
+    box-shadow: 0 0 3px #ccc, 0 10px 15px #eee inset;
     border-radius: 2px;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 1em;
@@ -230,6 +227,9 @@ main {
 .addform input:required, .addform textarea:required {
     background: #fff url('../images/red_asterisk.png') no-repeat 98% center;
 }
+/* Note: https://jigsaw.w3.org/css-validator/validator throws an error for :valid and :required but
+         http://www.w3schools.com/cssref/sel_required.asp says its available in CSS 3.
+*/
 .addform input:required:valid, .addform textarea:required:valid {
     background: #fff url('../images/valid.png') no-repeat 98% center;
     border-color: #28921f;

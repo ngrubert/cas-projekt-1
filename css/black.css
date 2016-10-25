@@ -21,7 +21,7 @@ body {
 }
 
 #filter-sortby-container {
-    align-items: left;
+    align-items: flex-start;
     background-color: #687a62;
     color: #444;
     display: flex;
