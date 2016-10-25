@@ -43,7 +43,7 @@ function renderNotes(sortby) {
     } else {
         // show all notes including finished ones
         var filtered_notes = notes;
-    };
+    }
     // render template and pass filtered_notes which is sorted with sortfunc alias
     var notestemplate = $('#notes-template'),
         create_notes_template = Handlebars.compile(notestemplate.text());
@@ -97,14 +97,16 @@ $(function() {
         $('#css-style').attr("href", 'css/' + selectedStylesheet + '.css');
     })
 
-    $('#notes-container').on('click', '.chk-finished', function() {
+    var notes_container = $('#notes-container');
+
+    notes_container.on('click', '.chk-finished', function() {
         var cb = $(this),
             status = cb.is(':checked');
         NSNotes.Storage.updateNoteFinishedStatus(cb.val(), status);
         renderNotes();
     })
 
-    $('#notes-container').on('click', '.edit-button', function() {
+    notes_container.on('click', '.edit-button', function() {
         var note_id = event.target.getAttribute('data-id');
         sessionStorage.setItem('NoteIdToEdit', note_id);
         if (note_id) {
