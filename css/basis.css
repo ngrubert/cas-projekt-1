@@ -1,13 +1,3 @@
-body {
-    display: flex;
-    flex-flow: row wrap;
-    flex-direction: column;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 0.9em;
-    min-height: 100vh;  /* stretch body over the full height of viewport and fix the footer at the bottom of the page */
-    margin: 0 auto;     /* removes outer space so we dont have a scrollbar*/
-    max-width: 1200px;  /* enable automatic wrapping of labels and input fields if users resizes the window */
-}
 div {
     padding: 4px;
 }
