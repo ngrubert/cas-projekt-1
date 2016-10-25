@@ -62,6 +62,10 @@ $(function() {
      --------------------------------------------------------
      */
 
+    $('#add-new-note').click(function() {
+        window.location.assign("addNote.html");
+    })
+
     $('#sortby').on('click', '.btn', function(event) {
         var sortby = event.target.getAttribute('data-sortby');
         sessionStorage.setItem('sortby', sortby);
