@@ -21,12 +21,12 @@ function renderNotes(sortby) {
     sessionStorage.setItem('sortorder', sortorder);
     var notes = NSNotes.Storage.getNotesData();
     // set all active buttons inactive
-    $('#sortby').find('.btn-active')
-                .removeClass('btn-active')
-                .addClass('btn-inactive');
+    $('#sortby').find('.active')
+                .removeClass('active')
+                .addClass('inactive');
     // activate the clicked button
-    $('#'+sortby).removeClass('btn-inactive')
-                 .addClass('btn-active');
+    $('#'+sortby).removeClass('inactive')
+                 .addClass('active');
     // create generic sort function
     var sortfunc = function(n1,n2) {
         if (sortorder == 'asc') {
@@ -37,7 +37,7 @@ function renderNotes(sortby) {
         }
     }
     // filter notes list according to [Show finished] button
-    if (!$('#btn-show-finished').hasClass('btn-active')) {
+    if (!$('#btn-show-finished').hasClass('active')) {
         // show only notes which are not finished
         var filtered_notes = notes.filter(obj => obj.is_finished == false);
     } else {
@@ -66,7 +66,7 @@ $(function() {
         window.location.assign("addNote.html");
     })
 
-    $('#sortby').on('click', '.btn', function(event) {
+    $('#sortby').on('click', '.inactive', function(event) {
         var sortby = event.target.getAttribute('data-sortby');
         sessionStorage.setItem('sortby', sortby);
         renderNotes();
@@ -87,7 +87,7 @@ $(function() {
     })
 
     $('#btn-show-finished').click(function() {
-        $('#btn-show-finished').toggleClass('btn-inactive btn-active');
+        $('#btn-show-finished').toggleClass('inactive active');
         renderNotes();
     })
 
