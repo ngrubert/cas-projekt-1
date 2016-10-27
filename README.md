@@ -23,5 +23,3 @@ ToDos:
 ======
 - Speichern in NoSQL DB
 - Node Server implementieren
-- CSS und HTML Validation
-- Bemerkungen von Tobias Blaser umsetzen
