@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Todo list application - edit note</title>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="author" content="Nico Grubert">
+    <meta name="date" content="2016-09-09T12:49:37+02:00">
+    <meta name="description" content="CAS FEE - Notizenapplikation">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" id="basis-css" media="screen" href="/css/basis.css">
+    <link type="text/css" rel="stylesheet" id="css-style" media="screen" href="/css/default.css">
+</head>
+<body>
+
+<header id="header">
+    <!--- navigation -->
+    <div id="navigation">
+        <div></div>
+        <div><h2>Todo list application</h2></div>
+        <div>
+            <span class="dropdown">
+                <select id="stylesheet-selector" name="stylesheet" title="Style">
+                    <option value="default">Default-Style</option>
+                    <option value="black">Black-White-Style</option>
+                </select>
+            </span>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div id="addform-container">
+        <!-- main content -->
+        <form action="/" name="viewform" id="viewform" class="addform" method="post">
+            <ul>
+                <li>
+                    <h2>View note</h2>
+                </li>
+
+                <li>
+                    <label for="field-id">DB ID:</label>
+                    <span id="field-id">{{_id}}</span>
+                </li>
+                <li><label for="field-due_date">Creation date:</label>
+                    <span id="field-due_date">{{formatDate createdDate "DD.MM.YYYY"}}</span>
+                </li>
+                <li>
+                    <label for="field-title">Title:</label>
+                    <span id="field-title">{{title}}</span>
+                </li>
+                <li>
+                    <label for="field-description">Description:</label>
+                    <span id="field-description">{{description}}</span>
+                </li>
+                <li><label for="field-due_date">Due Date:</label>
+                    <span id="field-due_date">{{formatDate dueDate "DD.MM.YYYY"}}</span>
+                </li>
+                <li><label>Importance:</label>
+                    <img src="/images/importance-{{importance}}.png" alt="importance-{{importance}}">
+                </li>
+                <li>
+                    <label for="field-finished">Finished:</label>
+                    {{#if isFinished}}Finished at {{formatDate finishDate "DD.MM.YYYY"}}{{/if}}
+                    {{#unless isFinished}}No{{/unless}}
+                </li>
+                <li class="center">
+                    <label for="cancel-btn"></label>
+                    <button type="button" name="cancel" id="cancel-btn" class="active">Back</button>
+                </li>
+            </ul>
+        </form>
+    </div>
+</main>
+<script src="/javascripts/libs/moment.min.js"></script>
+<script src="/javascripts/libs/jquery.min.js"></script>
+<script src="/javascripts/libs/handlebars.min.js"></script>
+<script src="/javascripts/setupNotesApp.js"></script>
+</body>
+</html>

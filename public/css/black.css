@@ -1,0 +1,46 @@
+body {
+    color: #ccc;
+    background-color: #000000;
+    display: flex;
+    flex-flow: row wrap;
+    flex-direction: column;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 0.9em;
+    min-height: 100vh;  /* stretch body over the full height of viewport and fix the footer at the bottom of the page */
+    margin: 0 auto;     /* removes outer space so we dont have a scrollbar*/
+    max-width: 1200px;  /* enable automatic wrapping of labels and input fields if users resizes the window */
+}
+
+#navigation {
+    align-items: center;
+    background-color: #486348;
+    display:flex;
+    height: 45px;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+#filter-sortby-container {
+    align-items: flex-start;
+    background-color: #687a62;
+    color: #444;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 10px;
+}
+
+
+/* === notes listing === */
+#notes-container {
+    background-color: #000000;
+    font-size: 0.9em;
+}
+
+div.note-item:nth-child(even)
+{
+    background-color: #222;
+}
+div.note-item:nth-child(odd)
+{
+    background-color: #000;
+}

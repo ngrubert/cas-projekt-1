@@ -1,0 +1,35 @@
+<div id="notes-container">
+{{#unless noteslist}}
+    <div id="empty-notes">
+        <h2>There are no open to do list entries available.</h2>
+        <h4>Click on "Create new note" button to create a new entry or
+            <a href="/createDummyNotes">create some dummy notes</a> to start.</h4>
+    </div>
+{{/unless}}
+{{#each noteslist}}
+    {{#if _id}}
+        <div class="note-item">
+            <div class="note-date">
+                <div>{{formatDueDate dueDate "DD.MM.YYYY"}}</div>
+                <div>
+                    <input id="finished-{{_id}}" type="checkbox" value="{{_id}}" class="chk-finished" {{#if isFinished}}checked{{/if}}>
+                    <label for="finished-{{_id}}">Finished{{#if isFinished}} at {{formatDate finishDate "DD.MM.YYYY"}}{{/if}}</label>
+                </div>
+                <div class="creationdate">Created at {{formatDate createdDate "DD.MM.YYYY"}}</div>
+            </div>
+            <div class="note-information">
+                <div class="title-wrapper">
+                    <div class="note-title">{{title}}</div>
+                    <div class="note-importance"><img src="/images/importance-{{importance}}.png" alt="importance-{{importance}}"></div>
+                </div>
+                <p class="note-description">{{description}}</p>
+            </div>
+            <div class="note-actions">
+                <button data-id="{{_id}}" class="action view-button">View</button>
+                <button data-id="{{_id}}" class="action edit-button">Edit</button>
+                <button data-id="{{_id}}" class="delete">Delete</button>
+            </div>
+        </div>
+    {{/if}}
+{{/each}}
+</div>
