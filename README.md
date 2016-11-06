@@ -5,11 +5,7 @@ A to do list application with node.js, handlebars, express
 ***********************************************************
 
 
-===========================================================
-
-Introduction
-
-===========================================================
+## Introduction
 
 This is my first Javascript application. I created it as a project work for the
 "CAS Front End Engineering" at Hochschule Rapperswil (http://www.hsr.ch).
@@ -21,12 +17,7 @@ I had to re-read the Javascript pitfalls and search for explainations quite ofte
 However, I am happy to have my first Javascript app running.
 
 
-
-===========================================================
-
-Installation
-
-===========================================================
+## Installation
 
   - Make sure you have Node.js and the node package manager "npm" installed on your machine
 
@@ -45,11 +36,7 @@ Installation
         http://127.0.0.1:3001
 
 
-===========================================================
-
-Feedback
-
-===========================================================
+## Feedback
 
 As this was my first Javascript application I guess there are many things which can be improved.
 I have some more features to be implemented on my list - e.g. polling with sockets.
