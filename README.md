@@ -4,12 +4,10 @@ A to do list application with node.js, handlebars, express
 
 ***********************************************************
 
-1. Introduction
-2. Installation
-3. Feedback
 
+===========================================================
 
-1. Introduction
+  1. Introduction
 
 ===========================================================
 
@@ -24,8 +22,9 @@ However, I am happy to have my first Javascript app running.
 
 
 
+===========================================================
 
-2. Installation
+  2. Installation
 
 ===========================================================
 
@@ -46,8 +45,9 @@ However, I am happy to have my first Javascript app running.
         http://127.0.0.1:3001
 
 
+===========================================================
 
-3. Feedback
+  3. Feedback
 
 ===========================================================
 
