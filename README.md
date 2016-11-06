@@ -7,7 +7,7 @@ A to do list application with node.js, handlebars, express
 
 ===========================================================
 
-* Introduction *
+Introduction
 
 ===========================================================
 
@@ -24,7 +24,7 @@ However, I am happy to have my first Javascript app running.
 
 ===========================================================
 
-* Installation *
+Installation
 
 ===========================================================
 
@@ -47,7 +47,7 @@ However, I am happy to have my first Javascript app running.
 
 ===========================================================
 
-* Feedback *
+Feedback
 
 ===========================================================
 
